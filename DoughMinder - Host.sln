@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoughMinder - Host", "DoughMinder - Host.csproj", "{1ED14164-7EEB-4400-8A64-3EF6D4580522}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1ED14164-7EEB-4400-8A64-3EF6D4580522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ED14164-7EEB-4400-8A64-3EF6D4580522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ED14164-7EEB-4400-8A64-3EF6D4580522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ED14164-7EEB-4400-8A64-3EF6D4580522}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {49FAB930-CBF4-4199-B8DE-5D70BA8013C3}
+	EndGlobalSection
+EndGlobal

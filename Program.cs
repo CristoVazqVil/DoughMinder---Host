@@ -12,7 +12,7 @@ namespace DoughMinder___Host
     {
         static void Main(string[] args)
         {
-            using (ServiceHost host = new ServiceHost(typeof(Clases.ServiceImplementation)))
+            using (ServiceHost host = new ServiceHost(typeof(Clases.Servicio)))
             {
                 host.Open();
                 Console.WriteLine("DoughMinder is running");

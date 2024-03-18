@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DoughMinderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DoughMinderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Empleado">
           <Key>
             <PropertyRef Name="Usuario" />
@@ -306,7 +306,8 @@
             <End Role="SolicitudProducto" EntitySet="SolicitudProducto" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DoughMinderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -329,7 +330,7 @@
           <Key>
             <PropertyRef Name="IdEstadoPedido" />
           </Key>
-          <Property Name="IdEstadoPedido" Type="Int32" Nullable="false" />
+          <Property Name="IdEstadoPedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EstadoPedido1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Pedido" Relationship="Self.FK__Pedido__IdEstado__398D8EEE" FromRole="EstadoPedido" ToRole="Pedido" />
         </EntityType>
@@ -337,7 +338,7 @@
           <Key>
             <PropertyRef Name="IdInsumo" />
           </Key>
-          <Property Name="IdInsumo" Type="Int32" Nullable="false" />
+          <Property Name="IdInsumo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="PrecioKiloLitro" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="CantidadKiloLitro" Type="Double" />
@@ -349,7 +350,7 @@
           <Key>
             <PropertyRef Name="IdInsumoReceta" />
           </Key>
-          <Property Name="IdInsumoReceta" Type="Int32" Nullable="false" />
+          <Property Name="IdInsumoReceta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdReceta" Type="Int32" />
           <Property Name="IdInsumo" Type="Int32" />
           <Property Name="Cantidad" Type="Double" />
@@ -360,7 +361,7 @@
           <Key>
             <PropertyRef Name="IdMovimiento" />
           </Key>
-          <Property Name="IdMovimiento" Type="Int32" Nullable="false" />
+          <Property Name="IdMovimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CostoTotal" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
@@ -368,7 +369,7 @@
           <Key>
             <PropertyRef Name="IdPedido" />
           </Key>
-          <Property Name="IdPedido" Type="Int32" Nullable="false" />
+          <Property Name="IdPedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TipoEntrega" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="Fecha" Type="DateTime" Precision="3" />
           <Property Name="CostoTotal" Type="Decimal" Precision="19" Scale="4" />
@@ -381,7 +382,7 @@
           <Key>
             <PropertyRef Name="IdPedidoProducto" />
           </Key>
-          <Property Name="IdPedidoProducto" Type="Int32" Nullable="false" />
+          <Property Name="IdPedidoProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Cantidad" Type="Int32" />
           <Property Name="IdPedido" Type="Int32" />
           <Property Name="ClaveProducto" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
@@ -409,7 +410,7 @@
           <Key>
             <PropertyRef Name="IdProveedor" />
           </Key>
-          <Property Name="IdProveedor" Type="Int32" Nullable="false" />
+          <Property Name="IdProveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
@@ -419,7 +420,7 @@
           <Key>
             <PropertyRef Name="IdPuesto" />
           </Key>
-          <Property Name="IdPuesto" Type="Int32" Nullable="false" />
+          <Property Name="IdPuesto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Puesto1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Empleado" Relationship="Self.FK__Empleado__IdPues__440B1D61" FromRole="Puesto" ToRole="Empleado" />
         </EntityType>
@@ -427,7 +428,7 @@
           <Key>
             <PropertyRef Name="IdReceta" />
           </Key>
-          <Property Name="IdReceta" Type="Int32" Nullable="false" />
+          <Property Name="IdReceta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Boolean" />
@@ -438,7 +439,7 @@
           <Key>
             <PropertyRef Name="IdSolicitud" />
           </Key>
-          <Property Name="IdSolicitud" Type="Int32" Nullable="false" />
+          <Property Name="IdSolicitud" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Fecha" Type="DateTime" Precision="3" />
           <Property Name="CostoTotal" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="IdProveedor" Type="Int32" />
@@ -449,7 +450,7 @@
           <Key>
             <PropertyRef Name="IdSolicitudProducto" />
           </Key>
-          <Property Name="IdSolicitudProducto" Type="Int32" Nullable="false" />
+          <Property Name="IdSolicitudProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Cantidad" Type="Int32" />
           <Property Name="IdSolicitud" Type="Int32" />
           <Property Name="ClaveProducto" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />

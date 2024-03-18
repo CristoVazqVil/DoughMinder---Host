@@ -12,6 +12,6 @@ namespace Clases.Contratos
     internal interface IInsumo
     {
         [OperationContract]
-        int AddPlayer(Insumo insumo);
+        int GuardarInsumo(Insumo insumo);
     }
 }

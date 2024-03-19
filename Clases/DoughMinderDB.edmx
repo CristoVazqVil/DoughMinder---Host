@@ -1,0 +1,803 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DoughMinderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="Usuario" />
+          </Key>
+          <Property Name="Usuario" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="60" />
+          <Property Name="Paterno" Type="nvarchar" MaxLength="60" />
+          <Property Name="Materno" Type="nvarchar" MaxLength="60" />
+          <Property Name="IdPuesto" Type="int" />
+          <Property Name="Telefono" Type="nvarchar" MaxLength="15" />
+          <Property Name="Estado" Type="bit" />
+          <Property Name="Contraseña" Type="nvarchar" MaxLength="200" />
+          <Property Name="Direccion" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="EstadoPedido">
+          <Key>
+            <PropertyRef Name="IdEstadoPedido" />
+          </Key>
+          <Property Name="IdEstadoPedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EstadoPedido" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Insumo">
+          <Key>
+            <PropertyRef Name="IdInsumo" />
+          </Key>
+          <Property Name="IdInsumo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="60" />
+          <Property Name="PrecioKiloLitro" Type="money" />
+          <Property Name="CantidadKiloLitro" Type="float" />
+          <Property Name="RutaFoto" Type="nvarchar" MaxLength="200" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="InsumoReceta">
+          <Key>
+            <PropertyRef Name="IdInsumoReceta" />
+          </Key>
+          <Property Name="IdInsumoReceta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdReceta" Type="int" />
+          <Property Name="IdInsumo" Type="int" />
+          <Property Name="Cantidad" Type="float" />
+        </EntityType>
+        <EntityType Name="Movimiento">
+          <Key>
+            <PropertyRef Name="IdMovimiento" />
+          </Key>
+          <Property Name="IdMovimiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CostoTotal" Type="money" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Pedido">
+          <Key>
+            <PropertyRef Name="IdPedido" />
+          </Key>
+          <Property Name="IdPedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoEntrega" Type="nvarchar" MaxLength="15" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="CostoTotal" Type="money" />
+          <Property Name="IdEstadoPedido" Type="int" />
+          <Property Name="Direccion" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="PedidoProducto">
+          <Key>
+            <PropertyRef Name="IdPedidoProducto" />
+          </Key>
+          <Property Name="IdPedidoProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="IdPedido" Type="int" />
+          <Property Name="ClaveProducto" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="CodigoProducto" />
+          </Key>
+          <Property Name="CodigoProducto" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="90" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+          <Property Name="Precio" Type="money" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="Restricciones" Type="nvarchar(max)" />
+          <Property Name="RutaFoto" Type="nvarchar" MaxLength="200" />
+          <Property Name="Estado" Type="bit" />
+          <Property Name="IdReceta" Type="int" />
+        </EntityType>
+        <EntityType Name="Proveedor">
+          <Key>
+            <PropertyRef Name="IdProveedor" />
+          </Key>
+          <Property Name="IdProveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="150" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" />
+          <Property Name="Telefono" Type="nvarchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Puesto">
+          <Key>
+            <PropertyRef Name="IdPuesto" />
+          </Key>
+          <Property Name="IdPuesto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Puesto" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Receta">
+          <Key>
+            <PropertyRef Name="IdReceta" />
+          </Key>
+          <Property Name="IdReceta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+          <Property Name="Descripcion" Type="nvarchar(max)" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Solicitud">
+          <Key>
+            <PropertyRef Name="IdSolicitud" />
+          </Key>
+          <Property Name="IdSolicitud" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="CostoTotal" Type="money" />
+          <Property Name="IdProveedor" Type="int" />
+        </EntityType>
+        <EntityType Name="SolicitudProducto">
+          <Key>
+            <PropertyRef Name="IdSolicitudProducto" />
+          </Key>
+          <Property Name="IdSolicitudProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="IdSolicitud" Type="int" />
+          <Property Name="ClaveProducto" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK__Empleado__IdPues__440B1D61">
+          <End Role="Puesto" Type="Self.Puesto" Multiplicity="0..1" />
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Puesto">
+              <PropertyRef Name="IdPuesto" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="IdPuesto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InsumoRec__IdIns__30F848ED">
+          <End Role="Insumo" Type="Self.Insumo" Multiplicity="0..1" />
+          <End Role="InsumoReceta" Type="Self.InsumoReceta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Insumo">
+              <PropertyRef Name="IdInsumo" />
+            </Principal>
+            <Dependent Role="InsumoReceta">
+              <PropertyRef Name="IdInsumo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InsumoRec__IdRec__300424B4">
+          <End Role="Receta" Type="Self.Receta" Multiplicity="0..1" />
+          <End Role="InsumoReceta" Type="Self.InsumoReceta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receta">
+              <PropertyRef Name="IdReceta" />
+            </Principal>
+            <Dependent Role="InsumoReceta">
+              <PropertyRef Name="IdReceta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pedido__IdEstado__398D8EEE">
+          <End Role="EstadoPedido" Type="Self.EstadoPedido" Multiplicity="0..1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoPedido">
+              <PropertyRef Name="IdEstadoPedido" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="IdEstadoPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PedidoPro__Clave__412EB0B6">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
+          <End Role="PedidoProducto" Type="Self.PedidoProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="CodigoProducto" />
+            </Principal>
+            <Dependent Role="PedidoProducto">
+              <PropertyRef Name="ClaveProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PedidoPro__IdPed__403A8C7D">
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="0..1" />
+          <End Role="PedidoProducto" Type="Self.PedidoProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido">
+              <PropertyRef Name="IdPedido" />
+            </Principal>
+            <Dependent Role="PedidoProducto">
+              <PropertyRef Name="IdPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Producto__IdRece__36B12243">
+          <End Role="Receta" Type="Self.Receta" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receta">
+              <PropertyRef Name="IdReceta" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdReceta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Solicitud__Clave__3D5E1FD2">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
+          <End Role="SolicitudProducto" Type="Self.SolicitudProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="CodigoProducto" />
+            </Principal>
+            <Dependent Role="SolicitudProducto">
+              <PropertyRef Name="ClaveProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Solicitud__IdPro__33D4B598">
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="0..1" />
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="IdProveedor" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="IdProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Solicitud__IdSol__3C69FB99">
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="0..1" />
+          <End Role="SolicitudProducto" Type="Self.SolicitudProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Solicitud">
+              <PropertyRef Name="IdSolicitud" />
+            </Principal>
+            <Dependent Role="SolicitudProducto">
+              <PropertyRef Name="IdSolicitud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DoughMinderModelStoreContainer">
+          <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EstadoPedido" EntityType="Self.EstadoPedido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Insumo" EntityType="Self.Insumo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InsumoReceta" EntityType="Self.InsumoReceta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Movimiento" EntityType="Self.Movimiento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pedido" EntityType="Self.Pedido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PedidoProducto" EntityType="Self.PedidoProducto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Puesto" EntityType="Self.Puesto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Receta" EntityType="Self.Receta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Solicitud" EntityType="Self.Solicitud" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SolicitudProducto" EntityType="Self.SolicitudProducto" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Empleado__IdPues__440B1D61" Association="Self.FK__Empleado__IdPues__440B1D61">
+            <End Role="Puesto" EntitySet="Puesto" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InsumoRec__IdIns__30F848ED" Association="Self.FK__InsumoRec__IdIns__30F848ED">
+            <End Role="Insumo" EntitySet="Insumo" />
+            <End Role="InsumoReceta" EntitySet="InsumoReceta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InsumoRec__IdRec__300424B4" Association="Self.FK__InsumoRec__IdRec__300424B4">
+            <End Role="Receta" EntitySet="Receta" />
+            <End Role="InsumoReceta" EntitySet="InsumoReceta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pedido__IdEstado__398D8EEE" Association="Self.FK__Pedido__IdEstado__398D8EEE">
+            <End Role="EstadoPedido" EntitySet="EstadoPedido" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PedidoPro__Clave__412EB0B6" Association="Self.FK__PedidoPro__Clave__412EB0B6">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="PedidoProducto" EntitySet="PedidoProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PedidoPro__IdPed__403A8C7D" Association="Self.FK__PedidoPro__IdPed__403A8C7D">
+            <End Role="Pedido" EntitySet="Pedido" />
+            <End Role="PedidoProducto" EntitySet="PedidoProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Producto__IdRece__36B12243" Association="Self.FK__Producto__IdRece__36B12243">
+            <End Role="Receta" EntitySet="Receta" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Solicitud__Clave__3D5E1FD2" Association="Self.FK__Solicitud__Clave__3D5E1FD2">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="SolicitudProducto" EntitySet="SolicitudProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Solicitud__IdPro__33D4B598" Association="Self.FK__Solicitud__IdPro__33D4B598">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Solicitud__IdSol__3C69FB99" Association="Self.FK__Solicitud__IdSol__3C69FB99">
+            <End Role="Solicitud" EntitySet="Solicitud" />
+            <End Role="SolicitudProducto" EntitySet="SolicitudProducto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DoughMinderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="Usuario" />
+          </Key>
+          <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="Paterno" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="Materno" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="IdPuesto" Type="Int32" />
+          <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" />
+          <Property Name="Contraseña" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Puesto" Relationship="Self.FK__Empleado__IdPues__440B1D61" FromRole="Empleado" ToRole="Puesto" />
+        </EntityType>
+        <EntityType Name="EstadoPedido">
+          <Key>
+            <PropertyRef Name="IdEstadoPedido" />
+          </Key>
+          <Property Name="IdEstadoPedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EstadoPedido1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pedido" Relationship="Self.FK__Pedido__IdEstado__398D8EEE" FromRole="EstadoPedido" ToRole="Pedido" />
+        </EntityType>
+        <EntityType Name="Insumo">
+          <Key>
+            <PropertyRef Name="IdInsumo" />
+          </Key>
+          <Property Name="IdInsumo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="PrecioKiloLitro" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CantidadKiloLitro" Type="Double" />
+          <Property Name="RutaFoto" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="InsumoReceta" Relationship="Self.FK__InsumoRec__IdIns__30F848ED" FromRole="Insumo" ToRole="InsumoReceta" />
+        </EntityType>
+        <EntityType Name="InsumoReceta">
+          <Key>
+            <PropertyRef Name="IdInsumoReceta" />
+          </Key>
+          <Property Name="IdInsumoReceta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdReceta" Type="Int32" />
+          <Property Name="IdInsumo" Type="Int32" />
+          <Property Name="Cantidad" Type="Double" />
+          <NavigationProperty Name="Insumo" Relationship="Self.FK__InsumoRec__IdIns__30F848ED" FromRole="InsumoReceta" ToRole="Insumo" />
+          <NavigationProperty Name="Receta" Relationship="Self.FK__InsumoRec__IdRec__300424B4" FromRole="InsumoReceta" ToRole="Receta" />
+        </EntityType>
+        <EntityType Name="Movimiento">
+          <Key>
+            <PropertyRef Name="IdMovimiento" />
+          </Key>
+          <Property Name="IdMovimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CostoTotal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Pedido">
+          <Key>
+            <PropertyRef Name="IdPedido" />
+          </Key>
+          <Property Name="IdPedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoEntrega" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="CostoTotal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IdEstadoPedido" Type="Int32" />
+          <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EstadoPedido" Relationship="Self.FK__Pedido__IdEstado__398D8EEE" FromRole="Pedido" ToRole="EstadoPedido" />
+          <NavigationProperty Name="PedidoProducto" Relationship="Self.FK__PedidoPro__IdPed__403A8C7D" FromRole="Pedido" ToRole="PedidoProducto" />
+        </EntityType>
+        <EntityType Name="PedidoProducto">
+          <Key>
+            <PropertyRef Name="IdPedidoProducto" />
+          </Key>
+          <Property Name="IdPedidoProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="IdPedido" Type="Int32" />
+          <Property Name="ClaveProducto" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pedido" Relationship="Self.FK__PedidoPro__IdPed__403A8C7D" FromRole="PedidoProducto" ToRole="Pedido" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK__PedidoPro__Clave__412EB0B6" FromRole="PedidoProducto" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="CodigoProducto" />
+          </Key>
+          <Property Name="CodigoProducto" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Precio" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="Restricciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RutaFoto" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" />
+          <Property Name="IdReceta" Type="Int32" />
+          <NavigationProperty Name="PedidoProducto" Relationship="Self.FK__PedidoPro__Clave__412EB0B6" FromRole="Producto" ToRole="PedidoProducto" />
+          <NavigationProperty Name="Receta" Relationship="Self.FK__Producto__IdRece__36B12243" FromRole="Producto" ToRole="Receta" />
+          <NavigationProperty Name="SolicitudProducto" Relationship="Self.FK__Solicitud__Clave__3D5E1FD2" FromRole="Producto" ToRole="SolicitudProducto" />
+        </EntityType>
+        <EntityType Name="Proveedor">
+          <Key>
+            <PropertyRef Name="IdProveedor" />
+          </Key>
+          <Property Name="IdProveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Solicitud" Relationship="Self.FK__Solicitud__IdPro__33D4B598" FromRole="Proveedor" ToRole="Solicitud" />
+        </EntityType>
+        <EntityType Name="Puesto">
+          <Key>
+            <PropertyRef Name="IdPuesto" />
+          </Key>
+          <Property Name="IdPuesto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Puesto1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Empleado" Relationship="Self.FK__Empleado__IdPues__440B1D61" FromRole="Puesto" ToRole="Empleado" />
+        </EntityType>
+        <EntityType Name="Receta">
+          <Key>
+            <PropertyRef Name="IdReceta" />
+          </Key>
+          <Property Name="IdReceta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="InsumoReceta" Relationship="Self.FK__InsumoRec__IdRec__300424B4" FromRole="Receta" ToRole="InsumoReceta" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK__Producto__IdRece__36B12243" FromRole="Receta" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Solicitud">
+          <Key>
+            <PropertyRef Name="IdSolicitud" />
+          </Key>
+          <Property Name="IdSolicitud" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="CostoTotal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IdProveedor" Type="Int32" />
+          <NavigationProperty Name="Proveedor" Relationship="Self.FK__Solicitud__IdPro__33D4B598" FromRole="Solicitud" ToRole="Proveedor" />
+          <NavigationProperty Name="SolicitudProducto" Relationship="Self.FK__Solicitud__IdSol__3C69FB99" FromRole="Solicitud" ToRole="SolicitudProducto" />
+        </EntityType>
+        <EntityType Name="SolicitudProducto">
+          <Key>
+            <PropertyRef Name="IdSolicitudProducto" />
+          </Key>
+          <Property Name="IdSolicitudProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="IdSolicitud" Type="Int32" />
+          <Property Name="ClaveProducto" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK__Solicitud__Clave__3D5E1FD2" FromRole="SolicitudProducto" ToRole="Producto" />
+          <NavigationProperty Name="Solicitud" Relationship="Self.FK__Solicitud__IdSol__3C69FB99" FromRole="SolicitudProducto" ToRole="Solicitud" />
+        </EntityType>
+        <Association Name="FK__Empleado__IdPues__440B1D61">
+          <End Role="Puesto" Type="Self.Puesto" Multiplicity="0..1" />
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Puesto">
+              <PropertyRef Name="IdPuesto" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="IdPuesto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pedido__IdEstado__398D8EEE">
+          <End Role="EstadoPedido" Type="Self.EstadoPedido" Multiplicity="0..1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoPedido">
+              <PropertyRef Name="IdEstadoPedido" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="IdEstadoPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InsumoRec__IdIns__30F848ED">
+          <End Role="Insumo" Type="Self.Insumo" Multiplicity="0..1" />
+          <End Role="InsumoReceta" Type="Self.InsumoReceta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Insumo">
+              <PropertyRef Name="IdInsumo" />
+            </Principal>
+            <Dependent Role="InsumoReceta">
+              <PropertyRef Name="IdInsumo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InsumoRec__IdRec__300424B4">
+          <End Role="Receta" Type="Self.Receta" Multiplicity="0..1" />
+          <End Role="InsumoReceta" Type="Self.InsumoReceta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receta">
+              <PropertyRef Name="IdReceta" />
+            </Principal>
+            <Dependent Role="InsumoReceta">
+              <PropertyRef Name="IdReceta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PedidoPro__IdPed__403A8C7D">
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="0..1" />
+          <End Role="PedidoProducto" Type="Self.PedidoProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido">
+              <PropertyRef Name="IdPedido" />
+            </Principal>
+            <Dependent Role="PedidoProducto">
+              <PropertyRef Name="IdPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PedidoPro__Clave__412EB0B6">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
+          <End Role="PedidoProducto" Type="Self.PedidoProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="CodigoProducto" />
+            </Principal>
+            <Dependent Role="PedidoProducto">
+              <PropertyRef Name="ClaveProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Producto__IdRece__36B12243">
+          <End Role="Receta" Type="Self.Receta" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receta">
+              <PropertyRef Name="IdReceta" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="IdReceta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Solicitud__Clave__3D5E1FD2">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
+          <End Role="SolicitudProducto" Type="Self.SolicitudProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="CodigoProducto" />
+            </Principal>
+            <Dependent Role="SolicitudProducto">
+              <PropertyRef Name="ClaveProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Solicitud__IdPro__33D4B598">
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="0..1" />
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="IdProveedor" />
+            </Principal>
+            <Dependent Role="Solicitud">
+              <PropertyRef Name="IdProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Solicitud__IdSol__3C69FB99">
+          <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="0..1" />
+          <End Role="SolicitudProducto" Type="Self.SolicitudProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Solicitud">
+              <PropertyRef Name="IdSolicitud" />
+            </Principal>
+            <Dependent Role="SolicitudProducto">
+              <PropertyRef Name="IdSolicitud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DoughMinderEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Empleado" EntityType="Self.Empleado" />
+          <EntitySet Name="EstadoPedido" EntityType="Self.EstadoPedido" />
+          <EntitySet Name="Insumo" EntityType="Self.Insumo" />
+          <EntitySet Name="InsumoReceta" EntityType="Self.InsumoReceta" />
+          <EntitySet Name="Movimiento" EntityType="Self.Movimiento" />
+          <EntitySet Name="Pedido" EntityType="Self.Pedido" />
+          <EntitySet Name="PedidoProducto" EntityType="Self.PedidoProducto" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" />
+          <EntitySet Name="Proveedor" EntityType="Self.Proveedor" />
+          <EntitySet Name="Puesto" EntityType="Self.Puesto" />
+          <EntitySet Name="Receta" EntityType="Self.Receta" />
+          <EntitySet Name="Solicitud" EntityType="Self.Solicitud" />
+          <EntitySet Name="SolicitudProducto" EntityType="Self.SolicitudProducto" />
+          <AssociationSet Name="FK__Empleado__IdPues__440B1D61" Association="Self.FK__Empleado__IdPues__440B1D61">
+            <End Role="Puesto" EntitySet="Puesto" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pedido__IdEstado__398D8EEE" Association="Self.FK__Pedido__IdEstado__398D8EEE">
+            <End Role="EstadoPedido" EntitySet="EstadoPedido" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InsumoRec__IdIns__30F848ED" Association="Self.FK__InsumoRec__IdIns__30F848ED">
+            <End Role="Insumo" EntitySet="Insumo" />
+            <End Role="InsumoReceta" EntitySet="InsumoReceta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InsumoRec__IdRec__300424B4" Association="Self.FK__InsumoRec__IdRec__300424B4">
+            <End Role="Receta" EntitySet="Receta" />
+            <End Role="InsumoReceta" EntitySet="InsumoReceta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PedidoPro__IdPed__403A8C7D" Association="Self.FK__PedidoPro__IdPed__403A8C7D">
+            <End Role="Pedido" EntitySet="Pedido" />
+            <End Role="PedidoProducto" EntitySet="PedidoProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PedidoPro__Clave__412EB0B6" Association="Self.FK__PedidoPro__Clave__412EB0B6">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="PedidoProducto" EntitySet="PedidoProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Producto__IdRece__36B12243" Association="Self.FK__Producto__IdRece__36B12243">
+            <End Role="Receta" EntitySet="Receta" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Solicitud__Clave__3D5E1FD2" Association="Self.FK__Solicitud__Clave__3D5E1FD2">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="SolicitudProducto" EntitySet="SolicitudProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Solicitud__IdPro__33D4B598" Association="Self.FK__Solicitud__IdPro__33D4B598">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Solicitud" EntitySet="Solicitud" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Solicitud__IdSol__3C69FB99" Association="Self.FK__Solicitud__IdSol__3C69FB99">
+            <End Role="Solicitud" EntitySet="Solicitud" />
+            <End Role="SolicitudProducto" EntitySet="SolicitudProducto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DoughMinderModelStoreContainer" CdmEntityContainer="DoughMinderEntities">
+          <EntitySetMapping Name="Empleado">
+            <EntityTypeMapping TypeName="DoughMinderModel.Empleado">
+              <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Paterno" ColumnName="Paterno" />
+                <ScalarProperty Name="Materno" ColumnName="Materno" />
+                <ScalarProperty Name="IdPuesto" ColumnName="IdPuesto" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstadoPedido">
+            <EntityTypeMapping TypeName="DoughMinderModel.EstadoPedido">
+              <MappingFragment StoreEntitySet="EstadoPedido">
+                <ScalarProperty Name="IdEstadoPedido" ColumnName="IdEstadoPedido" />
+                <ScalarProperty Name="EstadoPedido1" ColumnName="EstadoPedido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Insumo">
+            <EntityTypeMapping TypeName="DoughMinderModel.Insumo">
+              <MappingFragment StoreEntitySet="Insumo">
+                <ScalarProperty Name="IdInsumo" ColumnName="IdInsumo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="PrecioKiloLitro" ColumnName="PrecioKiloLitro" />
+                <ScalarProperty Name="CantidadKiloLitro" ColumnName="CantidadKiloLitro" />
+                <ScalarProperty Name="RutaFoto" ColumnName="RutaFoto" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InsumoReceta">
+            <EntityTypeMapping TypeName="DoughMinderModel.InsumoReceta">
+              <MappingFragment StoreEntitySet="InsumoReceta">
+                <ScalarProperty Name="IdInsumoReceta" ColumnName="IdInsumoReceta" />
+                <ScalarProperty Name="IdReceta" ColumnName="IdReceta" />
+                <ScalarProperty Name="IdInsumo" ColumnName="IdInsumo" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movimiento">
+            <EntityTypeMapping TypeName="DoughMinderModel.Movimiento">
+              <MappingFragment StoreEntitySet="Movimiento">
+                <ScalarProperty Name="IdMovimiento" ColumnName="IdMovimiento" />
+                <ScalarProperty Name="CostoTotal" ColumnName="CostoTotal" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pedido">
+            <EntityTypeMapping TypeName="DoughMinderModel.Pedido">
+              <MappingFragment StoreEntitySet="Pedido">
+                <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
+                <ScalarProperty Name="TipoEntrega" ColumnName="TipoEntrega" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="CostoTotal" ColumnName="CostoTotal" />
+                <ScalarProperty Name="IdEstadoPedido" ColumnName="IdEstadoPedido" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PedidoProducto">
+            <EntityTypeMapping TypeName="DoughMinderModel.PedidoProducto">
+              <MappingFragment StoreEntitySet="PedidoProducto">
+                <ScalarProperty Name="IdPedidoProducto" ColumnName="IdPedidoProducto" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
+                <ScalarProperty Name="ClaveProducto" ColumnName="ClaveProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="DoughMinderModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Restricciones" ColumnName="Restricciones" />
+                <ScalarProperty Name="RutaFoto" ColumnName="RutaFoto" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="IdReceta" ColumnName="IdReceta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proveedor">
+            <EntityTypeMapping TypeName="DoughMinderModel.Proveedor">
+              <MappingFragment StoreEntitySet="Proveedor">
+                <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Puesto">
+            <EntityTypeMapping TypeName="DoughMinderModel.Puesto">
+              <MappingFragment StoreEntitySet="Puesto">
+                <ScalarProperty Name="IdPuesto" ColumnName="IdPuesto" />
+                <ScalarProperty Name="Puesto1" ColumnName="Puesto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Receta">
+            <EntityTypeMapping TypeName="DoughMinderModel.Receta">
+              <MappingFragment StoreEntitySet="Receta">
+                <ScalarProperty Name="IdReceta" ColumnName="IdReceta" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Solicitud">
+            <EntityTypeMapping TypeName="DoughMinderModel.Solicitud">
+              <MappingFragment StoreEntitySet="Solicitud">
+                <ScalarProperty Name="IdSolicitud" ColumnName="IdSolicitud" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="CostoTotal" ColumnName="CostoTotal" />
+                <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SolicitudProducto">
+            <EntityTypeMapping TypeName="DoughMinderModel.SolicitudProducto">
+              <MappingFragment StoreEntitySet="SolicitudProducto">
+                <ScalarProperty Name="IdSolicitudProducto" ColumnName="IdSolicitudProducto" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="IdSolicitud" ColumnName="IdSolicitud" />
+                <ScalarProperty Name="ClaveProducto" ColumnName="ClaveProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,12 +8,9 @@ using System.Threading.Tasks;
 namespace Clases.Contratos
 {
     [ServiceContract]
-    internal interface IInsumo
+    internal interface IReceta
     {
         [OperationContract]
-        int GuardarInsumo(Insumo insumo);
-
-        [OperationContract]
-        Dictionary<int, string> RecuperarInsumos();
+        int GuardarReceta(Receta receta, Dictionary<int, float> listaInsumos);
     }
 }

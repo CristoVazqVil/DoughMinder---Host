@@ -13,9 +13,96 @@ using System.Threading.Tasks;
 namespace Clases
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
-
-    public class Servicio : IInsumo, IReceta, IProducto, IMovimiento
+    public class Servicio : IInsumo, IReceta, IEmpleado, IProveedor
     {
+
+
+        public int GuardarProveedor(Proveedor proveedor)
+        {
+            int codigo = 0;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    context.Database.Log = Console.WriteLine;
+
+                    bool existeProveedor = context.Proveedor.Any(i => i.Nombre == proveedor.Nombre);
+                    if (existeProveedor)
+                    {
+                        codigo = 0;
+                    }
+                    else
+                    {
+                        context.Proveedor.Add(proveedor);
+
+                        codigo = context.SaveChanges();
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = -1;
+            }
+            catch (DbUpdateException ex)
+            {
+                codigo = 0;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                codigo = 0;
+            }
+            catch (SqlException ex)
+            {
+                codigo = -1;
+            }
+
+            return codigo;
+        }
+
+        public int GuardarEmpleado(Empleado empleado)
+        {
+            int codigo = 0;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    context.Database.Log = Console.WriteLine;
+
+                    bool existeEmpleado = context.Empleado.Any(i => i.Nombre == empleado.Usuario);
+                    if (existeEmpleado)
+                    {
+                        codigo = 0;
+                    }
+                    else
+                    {
+                        context.Empleado.Add(empleado);
+
+                        codigo = context.SaveChanges();
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = -1;
+            }
+            catch (DbUpdateException ex)
+            {
+                codigo = 0;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                codigo = 0;
+            }
+            catch (SqlException ex)
+            {
+                codigo = -1;
+            }
+
+            return codigo;
+        }
+
         public int GuardarInsumo(Insumo insumo)
         {
             int codigo = 0;
@@ -222,7 +309,9 @@ namespace Clases
             return codigo;
         }
 
-        public Dictionary<int, string> RecuperarRecetas()
+       
+           
+ public Dictionary<int, string> RecuperarRecetas()
         {
             Dictionary<int, string> recetas = new Dictionary<int, string>();
 
@@ -251,6 +340,40 @@ namespace Clases
             }
 
             return recetas;
+        }
+    }
+
+
+
+        public Dictionary<string, string> RecuperarEmpleados()
+        {
+            Dictionary<string, string> empleados = new Dictionary<string, string>();
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultados = context.Empleado
+                        .Select(i => new { i.Nombre, i.Paterno })
+                        .ToList();
+
+                    foreach (var resultado in resultados)
+                    {
+                        empleados.Add(resultado.Nombre, resultado.Paterno);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return empleados;
+                }
+                catch (EntityException ex)
+                {
+                    return empleados;
+                }
+            }
+
+            return empleados;
         }
     }
 }

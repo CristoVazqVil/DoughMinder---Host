@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Clases
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
-    public class Servicio : IInsumo, IReceta
+    public class Servicio : IInsumo, IReceta, IMovimiento
     {
         public int GuardarInsumo(Insumo insumo)
         {
@@ -143,6 +143,39 @@ namespace Clases
             }
 
             return insumos;
+        }
+
+        public int RegistrarMovimiento(Movimiento movimiento)
+        {
+            int codigo = 0;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    context.Database.Log = Console.WriteLine;
+                    context.Movimiento.Add(movimiento);
+                    codigo = context.SaveChanges();
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = -1;
+            }
+            catch (DbUpdateException ex)
+            {
+                codigo = 0;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                codigo = 0;
+            }
+            catch (SqlException ex)
+            {
+                codigo = -1;
+            }
+
+            return codigo;
         }
     }
 }

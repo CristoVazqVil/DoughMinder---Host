@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Clases
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
-    public class Servicio : IInsumo, IReceta, IEmpleado, IProveedor
+    public class Servicio : IInsumo, IReceta, IEmpleado, IProveedor, IMovimiento
     {
         const int CODIGO_BASE = -1;
         const int VALOR_POR_DEFECTO = 0;
@@ -160,18 +160,18 @@ namespace Clases
                     bool existeProducto = context.Producto.Any(p => p.Nombre == producto.Nombre);
                     if (existeProducto)
                     {
-                        codigo = VALOR_POR_DEFECTO; 
+                        codigo = VALOR_POR_DEFECTO;
                     }
                     else
                     {
                         context.Producto.Add(producto);
-                        codigo = context.SaveChanges(); 
+                        codigo = context.SaveChanges();
                     }
                 }
             }
             catch (EntityException ex)
             {
-                codigo = CODIGO_BASE; 
+                codigo = CODIGO_BASE;
             }
             catch (DbUpdateException ex)
             {
@@ -310,9 +310,9 @@ namespace Clases
             return codigo;
         }
 
-       
-           
- public Dictionary<int, string> RecuperarRecetas()
+
+
+        public Dictionary<int, string> RecuperarRecetas()
         {
             Dictionary<int, string> recetas = new Dictionary<int, string>();
 
@@ -342,9 +342,6 @@ namespace Clases
 
             return recetas;
         }
-    }
-
-
 
         public Dictionary<string, string> RecuperarEmpleados()
         {

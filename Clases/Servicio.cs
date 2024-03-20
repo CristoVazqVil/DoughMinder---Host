@@ -243,12 +243,12 @@ namespace Clases
                 try
                 {
                     var resultados = context.Empleado
-                        .Select(i => new { i.Nombre, i.Paterno })
+                        .Select(i => new { i.Nombre, i.Paterno, i.Usuario })
                         .ToList();
 
                     foreach (var resultado in resultados)
                     {
-                        empleados.Add(resultado.Nombre, resultado.Paterno);
+                        empleados.Add(resultado.Nombre + " " + resultado.Paterno, resultado.Usuario);
                     }
                 }
                 catch (SqlException ex)
@@ -263,5 +263,6 @@ namespace Clases
 
             return empleados;
         }
+
     }
 }

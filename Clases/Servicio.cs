@@ -220,6 +220,7 @@ namespace Clases
             }
 
             return codigo;
+        }
 
         public Dictionary<int, string> RecuperarRecetas()
         {

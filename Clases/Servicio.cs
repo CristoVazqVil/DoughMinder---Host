@@ -15,11 +15,12 @@ namespace Clases
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class Servicio : IInsumo, IReceta, IEmpleado, IProveedor
     {
-
+        const int CODIGO_BASE = -1;
+        const int VALOR_POR_DEFECTO = 0;
 
         public int GuardarProveedor(Proveedor proveedor)
         {
-            int codigo = 0;
+            int codigo = VALOR_POR_DEFECTO;
 
             try
             {
@@ -30,7 +31,7 @@ namespace Clases
                     bool existeProveedor = context.Proveedor.Any(i => i.Nombre == proveedor.Nombre);
                     if (existeProveedor)
                     {
-                        codigo = 0;
+                        codigo = VALOR_POR_DEFECTO;
                     }
                     else
                     {
@@ -42,19 +43,19 @@ namespace Clases
             }
             catch (EntityException ex)
             {
-                codigo = -1;
+                codigo = CODIGO_BASE;
             }
             catch (DbUpdateException ex)
             {
-                codigo = 0;
+                codigo = VALOR_POR_DEFECTO;
             }
             catch (DbEntityValidationException ex)
             {
-                codigo = 0;
+                codigo = VALOR_POR_DEFECTO;
             }
             catch (SqlException ex)
             {
-                codigo = -1;
+                codigo = CODIGO_BASE;
             }
 
             return codigo;
@@ -62,7 +63,7 @@ namespace Clases
 
         public int GuardarEmpleado(Empleado empleado)
         {
-            int codigo = 0;
+            int codigo = VALOR_POR_DEFECTO;
 
             try
             {
@@ -73,7 +74,7 @@ namespace Clases
                     bool existeEmpleado = context.Empleado.Any(i => i.Nombre == empleado.Usuario);
                     if (existeEmpleado)
                     {
-                        codigo = 0;
+                        codigo = VALOR_POR_DEFECTO;
                     }
                     else
                     {
@@ -85,19 +86,19 @@ namespace Clases
             }
             catch (EntityException ex)
             {
-                codigo = -1;
+                codigo = CODIGO_BASE;
             }
             catch (DbUpdateException ex)
             {
-                codigo = 0;
+                codigo = VALOR_POR_DEFECTO;
             }
             catch (DbEntityValidationException ex)
             {
-                codigo = 0;
+                codigo = VALOR_POR_DEFECTO;
             }
             catch (SqlException ex)
             {
-                codigo = -1;
+                codigo = CODIGO_BASE;
             }
 
             return codigo;
@@ -105,7 +106,7 @@ namespace Clases
 
         public int GuardarInsumo(Insumo insumo)
         {
-            int codigo = 0;
+            int codigo = VALOR_POR_DEFECTO;
 
             try
             {
@@ -116,7 +117,7 @@ namespace Clases
                     bool existeInsumo = context.Insumo.Any(i => i.Nombre == insumo.Nombre);
                     if (existeInsumo)
                     {
-                        codigo = 0;
+                        codigo = VALOR_POR_DEFECTO;
                     }
                     else
                     {
@@ -128,19 +129,19 @@ namespace Clases
             }
             catch (EntityException ex)
             {
-                codigo = -1;
+                codigo = CODIGO_BASE;
             }
             catch (DbUpdateException ex)
             {
-                codigo = 0;
+                codigo = VALOR_POR_DEFECTO;
             }
             catch (DbEntityValidationException ex)
             {
-                codigo = 0;
+                codigo = VALOR_POR_DEFECTO;
             }
             catch (SqlException ex)
             {
-                codigo = -1;
+                codigo = CODIGO_BASE;
             }
 
             return codigo;
@@ -148,7 +149,7 @@ namespace Clases
 
         public int GuardarProducto(Producto producto)
         {
-            int codigo = 0;
+            int codigo = VALOR_POR_DEFECTO;
 
             try
             {
@@ -159,7 +160,7 @@ namespace Clases
                     bool existeProducto = context.Producto.Any(p => p.Nombre == producto.Nombre);
                     if (existeProducto)
                     {
-                        codigo = 0; 
+                        codigo = VALOR_POR_DEFECTO; 
                     }
                     else
                     {
@@ -170,19 +171,19 @@ namespace Clases
             }
             catch (EntityException ex)
             {
-                codigo = -1; 
+                codigo = CODIGO_BASE; 
             }
             catch (DbUpdateException ex)
             {
-                codigo = 0;
+                codigo = VALOR_POR_DEFECTO;
             }
             catch (DbEntityValidationException ex)
             {
-                codigo = 0;
+                codigo = VALOR_POR_DEFECTO;
             }
             catch (SqlException ex)
             {
-                codigo = -1;
+                codigo = CODIGO_BASE;
             }
 
             return codigo;
@@ -190,7 +191,7 @@ namespace Clases
 
         public int GuardarReceta(Receta receta, Dictionary<int, float> listaInsumos)
         {
-            int codigo = 0;
+            int codigo = VALOR_POR_DEFECTO;
 
             try
             {
@@ -201,7 +202,7 @@ namespace Clases
                     bool existeReceta = context.Receta.Any(r => r.Nombre == receta.Nombre);
                     if (existeReceta)
                     {
-                        codigo = 0;
+                        codigo = VALOR_POR_DEFECTO;
                         return codigo;
                     }
 
@@ -226,19 +227,19 @@ namespace Clases
             }
             catch (EntityException ex)
             {
-                codigo = -1;
+                codigo = CODIGO_BASE;
             }
             catch (DbUpdateException ex)
             {
-                codigo = 0;
+                codigo = VALOR_POR_DEFECTO;
             }
             catch (DbEntityValidationException ex)
             {
-                codigo = 0;
+                codigo = VALOR_POR_DEFECTO;
             }
             catch (SqlException ex)
             {
-                codigo = -1;
+                codigo = CODIGO_BASE;
             }
 
             return codigo;
@@ -278,7 +279,7 @@ namespace Clases
 
         public int RegistrarMovimiento(Movimiento movimiento)
         {
-            int codigo = 0;
+            int codigo = VALOR_POR_DEFECTO;
 
             try
             {
@@ -291,19 +292,19 @@ namespace Clases
             }
             catch (EntityException ex)
             {
-                codigo = -1;
+                codigo = CODIGO_BASE;
             }
             catch (DbUpdateException ex)
             {
-                codigo = 0;
+                codigo = VALOR_POR_DEFECTO;
             }
             catch (DbEntityValidationException ex)
             {
-                codigo = 0;
+                codigo = VALOR_POR_DEFECTO;
             }
             catch (SqlException ex)
             {
-                codigo = -1;
+                codigo = CODIGO_BASE;
             }
 
             return codigo;

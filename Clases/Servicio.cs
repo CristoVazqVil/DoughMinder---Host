@@ -13,11 +13,97 @@ using System.Threading.Tasks;
 namespace Clases
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
-
-    public class Servicio : IInsumo, IReceta, IProducto, IMovimiento
+    public class Servicio : IInsumo, IReceta, IEmpleado, IProveedor
     {
         const int CODIGO_BASE = -1;
         const int VALOR_POR_DEFECTO = 0;
+
+        public int GuardarProveedor(Proveedor proveedor)
+        {
+            int codigo = VALOR_POR_DEFECTO;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    context.Database.Log = Console.WriteLine;
+
+                    bool existeProveedor = context.Proveedor.Any(i => i.Nombre == proveedor.Nombre);
+                    if (existeProveedor)
+                    {
+                        codigo = VALOR_POR_DEFECTO;
+                    }
+                    else
+                    {
+                        context.Proveedor.Add(proveedor);
+
+                        codigo = context.SaveChanges();
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+            catch (DbUpdateException ex)
+            {
+                codigo = VALOR_POR_DEFECTO;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                codigo = VALOR_POR_DEFECTO;
+            }
+            catch (SqlException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+
+            return codigo;
+        }
+
+        public int GuardarEmpleado(Empleado empleado)
+        {
+            int codigo = VALOR_POR_DEFECTO;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    context.Database.Log = Console.WriteLine;
+
+                    bool existeEmpleado = context.Empleado.Any(i => i.Nombre == empleado.Usuario);
+                    if (existeEmpleado)
+                    {
+                        codigo = VALOR_POR_DEFECTO;
+                    }
+                    else
+                    {
+                        context.Empleado.Add(empleado);
+
+                        codigo = context.SaveChanges();
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+            catch (DbUpdateException ex)
+            {
+                codigo = VALOR_POR_DEFECTO;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                codigo = VALOR_POR_DEFECTO;
+            }
+            catch (SqlException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+
+            return codigo;
+        }
+
         public int GuardarInsumo(Insumo insumo)
         {
             int codigo = VALOR_POR_DEFECTO;
@@ -224,7 +310,9 @@ namespace Clases
             return codigo;
         }
 
-        public Dictionary<int, string> RecuperarRecetas()
+       
+           
+ public Dictionary<int, string> RecuperarRecetas()
         {
             Dictionary<int, string> recetas = new Dictionary<int, string>();
 
@@ -253,6 +341,40 @@ namespace Clases
             }
 
             return recetas;
+        }
+    }
+
+
+
+        public Dictionary<string, string> RecuperarEmpleados()
+        {
+            Dictionary<string, string> empleados = new Dictionary<string, string>();
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultados = context.Empleado
+                        .Select(i => new { i.Nombre, i.Paterno })
+                        .ToList();
+
+                    foreach (var resultado in resultados)
+                    {
+                        empleados.Add(resultado.Nombre, resultado.Paterno);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return empleados;
+                }
+                catch (EntityException ex)
+                {
+                    return empleados;
+                }
+            }
+
+            return empleados;
         }
     }
 }

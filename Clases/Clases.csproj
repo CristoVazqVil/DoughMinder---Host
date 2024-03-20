@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contratos\IEmpleado.cs" />
     <Compile Include="Contratos\IInsumo.cs" />
     <Compile Include="Contratos\IReceta.cs" />
     <Compile Include="DoughMinderDB.Context.cs">

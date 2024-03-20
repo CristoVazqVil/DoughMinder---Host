@@ -13,7 +13,8 @@ using System.Threading.Tasks;
 namespace Clases
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
-    public class Servicio : IInsumo, IReceta, IMovimiento
+
+    public class Servicio : IInsumo, IReceta, IProducto, IMovimiento
     {
         public int GuardarInsumo(Insumo insumo)
         {
@@ -41,6 +42,48 @@ namespace Clases
             catch (EntityException ex)
             {
                 codigo = -1;
+            }
+            catch (DbUpdateException ex)
+            {
+                codigo = 0;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                codigo = 0;
+            }
+            catch (SqlException ex)
+            {
+                codigo = -1;
+            }
+
+            return codigo;
+        }
+
+        public int GuardarProducto(Producto producto)
+        {
+            int codigo = 0;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    context.Database.Log = Console.WriteLine;
+
+                    bool existeProducto = context.Producto.Any(p => p.Nombre == producto.Nombre);
+                    if (existeProducto)
+                    {
+                        codigo = 0; 
+                    }
+                    else
+                    {
+                        context.Producto.Add(producto);
+                        codigo = context.SaveChanges(); 
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = -1; 
             }
             catch (DbUpdateException ex)
             {
@@ -145,6 +188,7 @@ namespace Clases
             return insumos;
         }
 
+
         public int RegistrarMovimiento(Movimiento movimiento)
         {
             int codigo = 0;
@@ -176,6 +220,36 @@ namespace Clases
             }
 
             return codigo;
+
+        public Dictionary<int, string> RecuperarRecetas()
+        {
+            Dictionary<int, string> recetas = new Dictionary<int, string>();
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultados = context.Receta
+                        .Select(i => new { i.IdReceta, i.Nombre })
+                        .ToList();
+
+                    foreach (var resultado in resultados)
+                    {
+                        recetas.Add(resultado.IdReceta, resultado.Nombre);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return recetas;
+                }
+                catch (EntityException ex)
+                {
+                    return recetas;
+                }
+            }
+
+            return recetas;
         }
     }
 }

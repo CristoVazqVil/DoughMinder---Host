@@ -232,5 +232,36 @@ namespace Clases
 
             return insumos;
         }
+
+        public Dictionary<string, string> RecuperarEmpleados()
+        {
+            Dictionary<string, string> empleados = new Dictionary<string, string>();
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultados = context.Empleado
+                        .Select(i => new { i.Nombre, i.Paterno })
+                        .ToList();
+
+                    foreach (var resultado in resultados)
+                    {
+                        empleados.Add(resultado.Nombre, resultado.Paterno);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return empleados;
+                }
+                catch (EntityException ex)
+                {
+                    return empleados;
+                }
+            }
+
+            return empleados;
+        }
     }
 }

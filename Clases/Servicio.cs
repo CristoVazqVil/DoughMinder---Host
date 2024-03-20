@@ -13,9 +13,52 @@ using System.Threading.Tasks;
 namespace Clases
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
-    public class Servicio : IInsumo, IReceta, IEmpleado
+    public class Servicio : IInsumo, IReceta, IEmpleado, IProveedor
     {
 
+
+        public int GuardarProveedor(Proveedor proveedor)
+        {
+            int codigo = 0;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    context.Database.Log = Console.WriteLine;
+
+                    bool existeProveedor = context.Proveedor.Any(i => i.Nombre == proveedor.Nombre);
+                    if (existeProveedor)
+                    {
+                        codigo = 0;
+                    }
+                    else
+                    {
+                        context.Proveedor.Add(proveedor);
+
+                        codigo = context.SaveChanges();
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = -1;
+            }
+            catch (DbUpdateException ex)
+            {
+                codigo = 0;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                codigo = 0;
+            }
+            catch (SqlException ex)
+            {
+                codigo = -1;
+            }
+
+            return codigo;
+        }
 
         public int GuardarEmpleado(Empleado empleado)
         {

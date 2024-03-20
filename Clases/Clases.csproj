@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Contratos\IEmpleado.cs" />
     <Compile Include="Contratos\IInsumo.cs" />
+    <Compile Include="Contratos\IProveedor.cs" />
     <Compile Include="Contratos\IReceta.cs" />
     <Compile Include="DoughMinderDB.Context.cs">
       <AutoGen>True</AutoGen>

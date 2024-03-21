@@ -13,5 +13,8 @@ namespace Clases.Contratos
 
         [OperationContract]
         int GuardarProducto(Producto producto);
+
+        [OperationContract]
+        List<Producto> RecuperarProductosSinReceta();
     }
 }

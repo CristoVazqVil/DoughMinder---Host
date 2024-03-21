@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Clases
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
-    public class Servicio : IInsumo, IReceta, IEmpleado, IProveedor, IMovimiento
+    public class Servicio : IInsumo, IReceta, IEmpleado, IProveedor, IMovimiento, IProducto
     {
         const int CODIGO_BASE = -1;
         const int VALOR_POR_DEFECTO = 0;
@@ -372,6 +372,122 @@ namespace Clases
             }
 
             return empleados;
+        }
+
+        public List<Proveedor> RecuperarProveedores()
+        {
+            List<Proveedor> proveedores = new List<Proveedor>();
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultado = context.Proveedor.Select(p => new {p.IdProveedor, p.Nombre, p.Telefono, p.Email}).ToList();
+                    foreach (var item in resultado)
+                    {
+                        Proveedor proveedor = new Proveedor
+                        {
+                            IdProveedor = item.IdProveedor,
+                            Nombre = item.Nombre,
+                            Telefono = item.Telefono,
+                            Email = item.Email
+                        };
+
+                        proveedores.Add(proveedor);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return proveedores;
+                }
+                catch (EntityException ex)
+                {
+                    return proveedores;
+                }
+            }
+
+            return proveedores;
+        }
+
+        public List<Insumo> RecuperarTodosInsumos()
+        {
+            List<Insumo> insumos = new List<Insumo>();
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultado = context.Insumo.ToList();
+
+                    foreach(var item in resultado)
+                    {
+                        Insumo insumo = new Insumo
+                        {
+                            IdInsumo = item.IdInsumo,
+                            Nombre = item.Nombre,
+                            CantidadKiloLitro = item.CantidadKiloLitro,
+                            Estado = item.Estado,
+                            RutaFoto = item.RutaFoto,
+                            PrecioKiloLitro = item.PrecioKiloLitro
+                        };
+
+                        insumos.Add(insumo);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return insumos;
+                }
+                catch (EntityException ex)
+                {
+                    return insumos;
+                }
+            }
+
+            return insumos;
+        }
+
+        public List<Producto> RecuperarProductosSinReceta()
+        {
+            List<Producto> productos = new List<Producto>();
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultado = context.Producto.Where(p => p.IdReceta == null).ToList();
+                    foreach (var item in resultado)
+                    {
+                        Producto producto = new Producto
+                        {
+                            CodigoProducto = item.CodigoProducto,
+                            Nombre = item.Nombre,
+                            Cantidad = item.Cantidad,
+                            Precio = item.Precio,
+                            IdReceta = item.IdReceta,
+                            Descripcion = item.Descripcion,
+                            Estado = item.Estado,
+                            Restricciones = item.Restricciones,
+                            RutaFoto = item.RutaFoto,
+                        };
+
+                        productos.Add(producto);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return productos;
+                }
+                catch (EntityException ex)
+                {
+                    return productos;
+                }
+            }
+
+            return productos;
         }
     }
 }

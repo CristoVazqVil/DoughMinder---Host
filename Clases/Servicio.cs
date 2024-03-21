@@ -314,6 +314,51 @@ namespace Clases
         }
 
 
+        public int ReemplazarEmpleado(string usuario)
+        {
+            int codigo = 0;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    context.Database.Log = Console.WriteLine;
+
+                    var empleadoEncontrado = context.Empleado.FirstOrDefault(e => e.Usuario == usuario);
+
+                    if (empleadoEncontrado != null)
+                    {
+                        context.Empleado.Remove(empleadoEncontrado);
+                        codigo = context.SaveChanges();
+                    }
+                    else
+                    {
+                        codigo = -1;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = -1;
+            }
+            catch (DbUpdateException ex)
+            {
+                codigo = 0;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                codigo = 0;
+            }
+            catch (SqlException ex)
+            {
+                codigo = -1;
+            }
+
+            return codigo;
+        }
+
+
+
 
 
 

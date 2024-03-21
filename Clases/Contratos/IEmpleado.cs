@@ -15,6 +15,10 @@ namespace Clases.Contratos
         int GuardarEmpleado(Empleado empleado);
 
         [OperationContract]
+         Empleado BuscarEmpleado(string usuario);
+
+
+        [OperationContract]
         Dictionary<string, string> RecuperarEmpleados();
     }
 

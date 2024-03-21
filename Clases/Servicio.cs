@@ -78,6 +78,7 @@ namespace Clases
                     else
                     {
                         context.Empleado.Add(empleado);
+                        
 
                         codigo = context.SaveChanges();
                     }
@@ -263,6 +264,61 @@ namespace Clases
 
             return empleados;
         }
+
+
+
+
+
+        public Empleado BuscarEmpleado(string usuario)
+        {
+            Empleado empleadoEncontrado = null;
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultado = context.Empleado
+                                        .Where(e => e.Usuario == usuario)
+                                        .FirstOrDefault();
+
+                    if (resultado != null)
+                    {
+                        empleadoEncontrado = new Empleado
+                        {
+                            Usuario = resultado.Usuario,
+                            Nombre = resultado.Nombre,
+                            Paterno = resultado.Paterno,
+                            Materno = resultado.Materno,
+                            IdPuesto = resultado.IdPuesto,
+                            Telefono = resultado.Telefono,
+                            Estado = resultado.Estado,
+                            Contraseña = resultado.Contraseña,
+                            Direccion = resultado.Direccion,
+                            Correo = resultado.Correo
+                            
+                        };
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Error al buscar empleado: " + ex.Message);
+                }
+                catch (EntityException ex)
+                {
+                    Console.WriteLine("Error al buscar empleado: " + ex.Message);
+                }
+            }
+
+            return empleadoEncontrado;
+        }
+
+
+
+
+
+
+
 
     }
 }

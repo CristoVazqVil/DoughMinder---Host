@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DoughMinderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DoughMinderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Empleado">
           <Key>
             <PropertyRef Name="Usuario" />
@@ -18,6 +18,7 @@
           <Property Name="Estado" Type="bit" />
           <Property Name="Contraseña" Type="nvarchar" MaxLength="200" />
           <Property Name="Direccion" Type="nvarchar" MaxLength="200" />
+          <Property Name="Correo" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="EstadoPedido">
           <Key>
@@ -306,8 +307,7 @@
             <End Role="SolicitudProducto" EntitySet="SolicitudProducto" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DoughMinderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -325,6 +325,7 @@
           <Property Name="Contraseña" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Puesto" Relationship="Self.FK__Empleado__IdPues__440B1D61" FromRole="Empleado" ToRole="Puesto" />
+          <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="EstadoPedido">
           <Key>
@@ -641,6 +642,7 @@
           <EntitySetMapping Name="Empleado">
             <EntityTypeMapping TypeName="DoughMinderModel.Empleado">
               <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
                 <ScalarProperty Name="Usuario" ColumnName="Usuario" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Paterno" ColumnName="Paterno" />

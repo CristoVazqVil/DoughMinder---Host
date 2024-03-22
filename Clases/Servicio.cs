@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Clases
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
-    public class Servicio : IInsumo, IReceta, IProducto
+    public class Servicio : IInsumo, IReceta, IProducto, ILogin
     {
         public int GuardarInsumo(Insumo insumo)
         {
@@ -216,6 +216,66 @@ namespace Clases
             }
 
             return recetas;
+        }
+
+        public Login RecuperarCuenta(string usuario, string contraseña)
+        {
+            Login login = null;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    var empleado = context.Empleado
+                        .FirstOrDefault(e => e.Usuario == usuario && e.Contraseña == contraseña);
+
+                    if (empleado != null)
+                    {
+                        login = new Login
+                        {
+                            Usuario = empleado.Usuario,
+                            Nombre = $"{empleado.Nombre} {empleado.Paterno} {empleado.Materno}",
+                            Puesto = (int)empleado.IdPuesto
+                        };
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                login = null;
+            }
+            catch (EntityException ex)
+            {
+                login = null;
+            }
+
+            return login;
+        }
+
+        public int VerificarUsuario(string usuario, string contraseña)
+        {
+            int resultado = 0;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    bool existeEmpleado = context.Empleado.Any(e => e.Usuario == usuario && e.Contraseña == contraseña);
+
+                    if (existeEmpleado)
+                        resultado = 1;
+                }
+            }
+            catch (SqlException ex)
+            {
+                resultado = -1;
+            }
+            catch (EntityException ex)
+            {
+                resultado = -1;
+            }
+
+            return resultado;
         }
     }
 }

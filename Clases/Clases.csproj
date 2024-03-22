@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contratos\IInsumo.cs" />
+    <Compile Include="Contratos\ILogin.cs" />
     <Compile Include="Contratos\IProducto.cs" />
     <Compile Include="Contratos\IReceta.cs" />
     <Compile Include="DoughMinderDB.Context.cs">

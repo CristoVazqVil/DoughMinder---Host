@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Clases
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
-    public class Servicio : IInsumo, IReceta, IEmpleado, IProveedor, IMovimiento, IProducto
+    public class Servicio : IInsumo, IReceta, IEmpleado, IProveedor, IMovimiento, IProducto, ISolicitud, IPedido
     {
         const int CODIGO_BASE = -1;
         const int VALOR_POR_DEFECTO = 0;
@@ -488,6 +488,123 @@ namespace Clases
             }
 
             return productos;
+        }
+
+        public int RegistrarSolicitud(Solicitud solicitud, List<SolicitudProducto> solicitudProductos)
+        {
+            int codigo = VALOR_POR_DEFECTO;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    using (var transaction = context.Database.BeginTransaction())
+                    {
+                        context.Database.Log = Console.WriteLine;
+                        context.Solicitud.Add(solicitud);
+
+                        codigo = context.SaveChanges();
+
+                        foreach (var sp in solicitudProductos)
+                        {
+                            sp.IdSolicitud = solicitud.IdSolicitud;
+                            context.SolicitudProducto.Add(sp);
+                        }
+
+                        codigo += context.SaveChanges();
+                        transaction.Commit();
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+            catch (SqlException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+
+            return codigo;
+        }
+
+        public List<Producto> RecuperarProductosParaPedido()
+        {
+            List<Producto> productos = new List<Producto>();
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultado = context.Producto.Where(p => p.Cantidad > 0 && p.Estado == true).ToList();
+                    foreach (var item in resultado)
+                    {
+                        Producto producto = new Producto
+                        {
+                            CodigoProducto = item.CodigoProducto,
+                            Nombre = item.Nombre,
+                            Cantidad = item.Cantidad,
+                            Precio = item.Precio,
+                            IdReceta = item.IdReceta,
+                            Descripcion = item.Descripcion,
+                            Estado = item.Estado,
+                            Restricciones = item.Restricciones,
+                            RutaFoto = item.RutaFoto,
+                        };
+
+                        productos.Add(producto);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return productos;
+                }
+                catch (EntityException ex)
+                {
+                    return productos;
+                }
+            }
+
+            return productos;
+        }
+
+        public int RegistrarPedido(Pedido pedido, List<PedidoProducto> pedidoProductos)
+        {
+            int codigo = VALOR_POR_DEFECTO;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    using (var transaction = context.Database.BeginTransaction())
+                    {
+                        context.Database.Log = Console.WriteLine;
+                        context.Pedido.Add(pedido);
+
+                        codigo = context.SaveChanges();
+
+                        foreach (var pp in pedidoProductos)
+                        {
+                            pp.IdPedido = pedido.IdPedido;
+                            context.PedidoProducto.Add(pp);
+                        }
+
+                        codigo += context.SaveChanges();
+                        transaction.Commit();
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+            catch (SqlException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+
+            return codigo;
         }
     }
 }

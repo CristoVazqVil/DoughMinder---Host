@@ -23,6 +23,7 @@ namespace Clases
         public Nullable<bool> Estado { get; set; }
         public string Contraseña { get; set; }
         public string Direccion { get; set; }
+        public string Correo { get; set; }
     
         public virtual Puesto Puesto { get; set; }
     }

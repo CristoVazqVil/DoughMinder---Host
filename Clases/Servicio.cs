@@ -79,6 +79,7 @@ namespace Clases
                     else
                     {
                         context.Empleado.Add(empleado);
+                        
 
                         codigo = context.SaveChanges();
                     }
@@ -353,12 +354,12 @@ namespace Clases
                 try
                 {
                     var resultados = context.Empleado
-                        .Select(i => new { i.Nombre, i.Paterno })
+                        .Select(i => new { i.Nombre, i.Paterno, i.Usuario })
                         .ToList();
 
                     foreach (var resultado in resultados)
                     {
-                        empleados.Add(resultado.Nombre, resultado.Paterno);
+                        empleados.Add(resultado.Nombre + " " + resultado.Paterno, resultado.Usuario);
                     }
                 }
                 catch (SqlException ex)
@@ -489,6 +490,97 @@ namespace Clases
 
             return productos;
         }
+
+public Empleado BuscarEmpleado(string usuario)
+        {
+            Empleado empleadoEncontrado = null;
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultado = context.Empleado
+                                        .Where(e => e.Usuario == usuario)
+                                        .FirstOrDefault();
+
+                    if (resultado != null)
+                    {
+                        empleadoEncontrado = new Empleado
+                        {
+                            Usuario = resultado.Usuario,
+                            Nombre = resultado.Nombre,
+                            Paterno = resultado.Paterno,
+                            Materno = resultado.Materno,
+                            IdPuesto = resultado.IdPuesto,
+                            Telefono = resultado.Telefono,
+                            Estado = resultado.Estado,
+                            Contraseña = resultado.Contraseña,
+                            Direccion = resultado.Direccion,
+                            Correo = resultado.Correo
+                            
+                        };
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Error al buscar empleado: " + ex.Message);
+                }
+                catch (EntityException ex)
+                {
+                    Console.WriteLine("Error al buscar empleado: " + ex.Message);
+                }
+            }
+
+            return empleadoEncontrado;
+        }
+
+
+        public int ReemplazarEmpleado(string usuario)
+        {
+            int codigo = 0;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    context.Database.Log = Console.WriteLine;
+
+                    var empleadoEncontrado = context.Empleado.FirstOrDefault(e => e.Usuario == usuario);
+
+                    if (empleadoEncontrado != null)
+                    {
+                        context.Empleado.Remove(empleadoEncontrado);
+                        codigo = context.SaveChanges();
+                    }
+                    else
+                    {
+                        codigo = -1;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = -1;
+            }
+            catch (DbUpdateException ex)
+            {
+                codigo = 0;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                codigo = 0;
+            }
+            catch (SqlException ex)
+            {
+                codigo = -1;
+            }
+
+            return codigo;
+        }
+
+
+
 
         public int RegistrarSolicitud(Solicitud solicitud, List<SolicitudProducto> solicitudProductos)
         {

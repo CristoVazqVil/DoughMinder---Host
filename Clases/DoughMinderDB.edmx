@@ -135,7 +135,7 @@
           <Property Name="ClaveProducto" Type="nvarchar" MaxLength="10" />
           <Property Name="IdInsumo" Type="int" />
         </EntityType>
-        <Association Name="FK__Empleado__IdPues__571DF1D5">
+        <Association Name="FK__Empleado__IdPues__440B1D61">
           <End Role="Puesto" Type="Self.Puesto" Multiplicity="0..1" />
           <End Role="Empleado" Type="Self.Empleado" Multiplicity="*" />
           <ReferentialConstraint>
@@ -147,7 +147,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__InsumoRec__IdIns__440B1D61">
+        <Association Name="FK__InsumoRec__IdIns__30F848ED">
           <End Role="Insumo" Type="Self.Insumo" Multiplicity="0..1" />
           <End Role="InsumoReceta" Type="Self.InsumoReceta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -159,7 +159,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__InsumoRec__IdRec__4316F928">
+        <Association Name="FK__InsumoRec__IdRec__300424B4">
           <End Role="Receta" Type="Self.Receta" Multiplicity="0..1" />
           <End Role="InsumoReceta" Type="Self.InsumoReceta" Multiplicity="*" />
           <ReferentialConstraint>
@@ -171,7 +171,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pedido__IdEstado__4CA06362">
+        <Association Name="FK__Pedido__IdEstado__398D8EEE">
           <End Role="EstadoPedido" Type="Self.EstadoPedido" Multiplicity="0..1" />
           <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
           <ReferentialConstraint>
@@ -183,7 +183,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PedidoPro__Clave__5441852A">
+        <Association Name="FK__PedidoPro__Clave__412EB0B6">
           <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
           <End Role="PedidoProducto" Type="Self.PedidoProducto" Multiplicity="*" />
           <ReferentialConstraint>
@@ -195,7 +195,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PedidoPro__IdPed__534D60F1">
+        <Association Name="FK__PedidoPro__IdPed__403A8C7D">
           <End Role="Pedido" Type="Self.Pedido" Multiplicity="0..1" />
           <End Role="PedidoProducto" Type="Self.PedidoProducto" Multiplicity="*" />
           <ReferentialConstraint>
@@ -207,7 +207,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Producto__IdRece__49C3F6B7">
+        <Association Name="FK__Producto__IdRece__36B12243">
           <End Role="Receta" Type="Self.Receta" Multiplicity="0..1" />
           <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
           <ReferentialConstraint>
@@ -219,7 +219,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Solicitud__Clave__5070F446">
+        <Association Name="FK__Solicitud__Clave__3D5E1FD2">
           <End Role="Producto" Type="Self.Producto" Multiplicity="0..1" />
           <End Role="SolicitudProducto" Type="Self.SolicitudProducto" Multiplicity="*" />
           <ReferentialConstraint>
@@ -231,7 +231,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Solicitud__IdPro__46E78A0C">
+        <Association Name="FK__Solicitud__IdPro__33D4B598">
           <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="0..1" />
           <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="*" />
           <ReferentialConstraint>
@@ -243,7 +243,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Solicitud__IdSol__4F7CD00D">
+        <Association Name="FK__Solicitud__IdSol__3C69FB99">
           <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="0..1" />
           <End Role="SolicitudProducto" Type="Self.SolicitudProducto" Multiplicity="*" />
           <ReferentialConstraint>
@@ -283,43 +283,43 @@
           <EntitySet Name="Receta" EntityType="Self.Receta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Solicitud" EntityType="Self.Solicitud" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SolicitudProducto" EntityType="Self.SolicitudProducto" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Empleado__IdPues__571DF1D5" Association="Self.FK__Empleado__IdPues__571DF1D5">
+          <AssociationSet Name="FK__Empleado__IdPues__440B1D61" Association="Self.FK__Empleado__IdPues__440B1D61">
             <End Role="Puesto" EntitySet="Puesto" />
             <End Role="Empleado" EntitySet="Empleado" />
           </AssociationSet>
-          <AssociationSet Name="FK__InsumoRec__IdIns__440B1D61" Association="Self.FK__InsumoRec__IdIns__440B1D61">
+          <AssociationSet Name="FK__InsumoRec__IdIns__30F848ED" Association="Self.FK__InsumoRec__IdIns__30F848ED">
             <End Role="Insumo" EntitySet="Insumo" />
             <End Role="InsumoReceta" EntitySet="InsumoReceta" />
           </AssociationSet>
-          <AssociationSet Name="FK__InsumoRec__IdRec__4316F928" Association="Self.FK__InsumoRec__IdRec__4316F928">
+          <AssociationSet Name="FK__InsumoRec__IdRec__300424B4" Association="Self.FK__InsumoRec__IdRec__300424B4">
             <End Role="Receta" EntitySet="Receta" />
             <End Role="InsumoReceta" EntitySet="InsumoReceta" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pedido__IdEstado__4CA06362" Association="Self.FK__Pedido__IdEstado__4CA06362">
+          <AssociationSet Name="FK__Pedido__IdEstado__398D8EEE" Association="Self.FK__Pedido__IdEstado__398D8EEE">
             <End Role="EstadoPedido" EntitySet="EstadoPedido" />
             <End Role="Pedido" EntitySet="Pedido" />
           </AssociationSet>
-          <AssociationSet Name="FK__PedidoPro__Clave__5441852A" Association="Self.FK__PedidoPro__Clave__5441852A">
+          <AssociationSet Name="FK__PedidoPro__Clave__412EB0B6" Association="Self.FK__PedidoPro__Clave__412EB0B6">
             <End Role="Producto" EntitySet="Producto" />
             <End Role="PedidoProducto" EntitySet="PedidoProducto" />
           </AssociationSet>
-          <AssociationSet Name="FK__PedidoPro__IdPed__534D60F1" Association="Self.FK__PedidoPro__IdPed__534D60F1">
+          <AssociationSet Name="FK__PedidoPro__IdPed__403A8C7D" Association="Self.FK__PedidoPro__IdPed__403A8C7D">
             <End Role="Pedido" EntitySet="Pedido" />
             <End Role="PedidoProducto" EntitySet="PedidoProducto" />
           </AssociationSet>
-          <AssociationSet Name="FK__Producto__IdRece__49C3F6B7" Association="Self.FK__Producto__IdRece__49C3F6B7">
+          <AssociationSet Name="FK__Producto__IdRece__36B12243" Association="Self.FK__Producto__IdRece__36B12243">
             <End Role="Receta" EntitySet="Receta" />
             <End Role="Producto" EntitySet="Producto" />
           </AssociationSet>
-          <AssociationSet Name="FK__Solicitud__Clave__5070F446" Association="Self.FK__Solicitud__Clave__5070F446">
+          <AssociationSet Name="FK__Solicitud__Clave__3D5E1FD2" Association="Self.FK__Solicitud__Clave__3D5E1FD2">
             <End Role="Producto" EntitySet="Producto" />
             <End Role="SolicitudProducto" EntitySet="SolicitudProducto" />
           </AssociationSet>
-          <AssociationSet Name="FK__Solicitud__IdPro__46E78A0C" Association="Self.FK__Solicitud__IdPro__46E78A0C">
+          <AssociationSet Name="FK__Solicitud__IdPro__33D4B598" Association="Self.FK__Solicitud__IdPro__33D4B598">
             <End Role="Proveedor" EntitySet="Proveedor" />
             <End Role="Solicitud" EntitySet="Solicitud" />
           </AssociationSet>
-          <AssociationSet Name="FK__Solicitud__IdSol__4F7CD00D" Association="Self.FK__Solicitud__IdSol__4F7CD00D">
+          <AssociationSet Name="FK__Solicitud__IdSol__3C69FB99" Association="Self.FK__Solicitud__IdSol__3C69FB99">
             <End Role="Solicitud" EntitySet="Solicitud" />
             <End Role="SolicitudProducto" EntitySet="SolicitudProducto" />
           </AssociationSet>
@@ -476,7 +476,7 @@
             <PropertyRef Name="IdSolicitudProducto" />
           </Key>
           <Property Name="IdSolicitudProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Cantidad" Type="Decimal" />
+          <Property Name="Cantidad" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="IdSolicitud" Type="Int32" />
           <Property Name="ClaveProducto" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Producto" Relationship="Self.FK__Solicitud__Clave__3D5E1FD2" FromRole="SolicitudProducto" ToRole="Producto" />

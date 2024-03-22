@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Clases
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
-    public class Servicio : IInsumo, IReceta, IEmpleado, IProveedor, IMovimiento, IProducto, ISolicitud, IPedido
+    public class Servicio : IInsumo, IReceta, IEmpleado, IProveedor, IMovimiento, IProducto, ISolicitud, IPedido, ILogin
     {
         const int CODIGO_BASE = -1;
         const int VALOR_POR_DEFECTO = 0;
@@ -698,9 +698,34 @@ public Empleado BuscarEmpleado(string usuario)
 
             return codigo;
         }
-    }
 
-   public Login RecuperarCuenta(string usuario, string contraseña)
+        public int VerificarUsuario(string usuario, string contraseña)
+        {
+            int resultado = 0;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    bool existeEmpleado = context.Empleado.Any(e => e.Usuario == usuario && e.Contraseña == contraseña);
+
+                    if (existeEmpleado)
+                        resultado = 1;
+                }
+            }
+            catch (SqlException ex)
+            {
+                resultado = -1;
+            }
+            catch (EntityException ex)
+            {
+                resultado = -1;
+            }
+
+            return resultado;
+        }
+
+        public Login RecuperarCuenta(string usuario, string contraseña)
         {
             Login login = null;
 
@@ -733,8 +758,5 @@ public Empleado BuscarEmpleado(string usuario)
 
             return login;
         }
-
-
-
-    
+    }
 }

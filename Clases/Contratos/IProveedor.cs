@@ -8,16 +8,12 @@ using System.Threading.Tasks;
 namespace Clases.Contratos
 {
     [ServiceContract]
-    internal interface IProducto
+    internal interface IProveedor
     {
+        [OperationContract]
+        int GuardarProveedor(Proveedor proveedor);
 
         [OperationContract]
-        int GuardarProducto(Producto producto);
-
-        [OperationContract]
-        List<Producto> RecuperarProductosSinReceta();
-
-        [OperationContract]
-        List<Producto> RecuperarProductosParaPedido(); 
+        List<Proveedor> RecuperarProveedores();
     }
 }

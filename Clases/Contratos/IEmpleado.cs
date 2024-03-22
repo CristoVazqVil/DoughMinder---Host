@@ -7,17 +7,23 @@ using System.Threading.Tasks;
 
 namespace Clases.Contratos
 {
+
     [ServiceContract]
-    internal interface IProducto
+    internal interface IEmpleado
     {
+        [OperationContract]
+        int GuardarEmpleado(Empleado empleado);
+
 
         [OperationContract]
-        int GuardarProducto(Producto producto);
+        int ReemplazarEmpleado(string usuario);
 
         [OperationContract]
-        List<Producto> RecuperarProductosSinReceta();
+         Empleado BuscarEmpleado(string usuario);
+
 
         [OperationContract]
-        List<Producto> RecuperarProductosParaPedido(); 
+        Dictionary<string, string> RecuperarEmpleados();
     }
+
 }

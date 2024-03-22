@@ -56,10 +56,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contratos\IEmpleado.cs" />
     <Compile Include="Contratos\IInsumo.cs" />
-    <Compile Include="Contratos\ILogin.cs" />
+    <Compile Include="Contratos\IMovimiento.cs" />
+    <Compile Include="Contratos\IPedido.cs" />
     <Compile Include="Contratos\IProducto.cs" />
+    <Compile Include="Contratos\IProveedor.cs" />
     <Compile Include="Contratos\IReceta.cs" />
+    <Compile Include="Contratos\ISolicitud.cs" />
     <Compile Include="DoughMinderDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

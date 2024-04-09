@@ -758,5 +758,46 @@ public Empleado BuscarEmpleado(string usuario)
 
             return login;
         }
+
+        public List<Producto> RecuperarProductos()
+        {
+            List<Producto> productos = new List<Producto>();
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultado = context.Producto.ToList();
+                    foreach (var item in resultado)
+                    {
+                        Producto producto = new Producto
+                        {
+                            CodigoProducto = item.CodigoProducto,
+                            Nombre = item.Nombre,
+                            Cantidad = item.Cantidad,
+                            Precio = item.Precio,
+                            IdReceta = item.IdReceta,
+                            Descripcion = item.Descripcion,
+                            Estado = item.Estado,
+                            Restricciones = item.Restricciones,
+                            RutaFoto = item.RutaFoto,
+                        };
+
+                        productos.Add(producto);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return productos;
+                }
+                catch (EntityException ex)
+                {
+                    return productos;
+                }
+            }
+
+            return productos;
+        }
     }
 }

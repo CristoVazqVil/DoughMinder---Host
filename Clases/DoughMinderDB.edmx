@@ -19,6 +19,7 @@
           <Property Name="Contraseña" Type="nvarchar" MaxLength="200" />
           <Property Name="Direccion" Type="nvarchar" MaxLength="200" />
           <Property Name="Correo" Type="nvarchar" MaxLength="100" />
+          <Property Name="RFC" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="EstadoPedido">
           <Key>
@@ -97,6 +98,7 @@
           <Property Name="Nombre" Type="nvarchar" MaxLength="150" />
           <Property Name="Email" Type="nvarchar" MaxLength="150" />
           <Property Name="Telefono" Type="nvarchar" MaxLength="15" />
+          <Property Name="RFC" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Puesto">
           <Key>
@@ -326,6 +328,7 @@
           <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Puesto" Relationship="Self.FK__Empleado__IdPues__571DF1D5" FromRole="Empleado" ToRole="Puesto" />
+          <Property Name="RFC" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="EstadoPedido">
           <Key>
@@ -416,6 +419,7 @@
           <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Solicitud" Relationship="Self.FK__Solicitud__IdPro__46E78A0C" FromRole="Proveedor" ToRole="Solicitud" />
+          <Property Name="RFC" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Puesto">
           <Key>
@@ -642,6 +646,7 @@
           <EntitySetMapping Name="Empleado">
             <EntityTypeMapping TypeName="DoughMinderModel.Empleado">
               <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
                 <ScalarProperty Name="Usuario" ColumnName="Usuario" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Paterno" ColumnName="Paterno" />
@@ -734,6 +739,7 @@
           <EntitySetMapping Name="Proveedor">
             <EntityTypeMapping TypeName="DoughMinderModel.Proveedor">
               <MappingFragment StoreEntitySet="Proveedor">
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
                 <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Email" ColumnName="Email" />

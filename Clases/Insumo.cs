@@ -27,6 +27,7 @@ namespace Clases
         public Nullable<double> CantidadKiloLitro { get; set; }
         public string RutaFoto { get; set; }
         public Nullable<bool> Estado { get; set; }
+        public string Codigo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InsumoReceta> InsumoReceta { get; set; }

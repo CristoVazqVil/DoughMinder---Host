@@ -115,7 +115,7 @@ namespace Clases
                 {
                     context.Database.Log = Console.WriteLine;
 
-                    bool existeInsumo = context.Insumo.Any(i => i.Nombre == insumo.Nombre);
+                    bool existeInsumo = context.Insumo.Any(i => i.Nombre == insumo.Nombre || i.Codigo == insumo.Codigo);
                     if (existeInsumo)
                     {
                         codigo = VALOR_POR_DEFECTO;
@@ -200,7 +200,7 @@ namespace Clases
                 {
                     context.Database.Log = Console.WriteLine;
 
-                    bool existeReceta = context.Receta.Any(r => r.Nombre == receta.Nombre);
+                    bool existeReceta = context.Receta.Any(r => r.Nombre == receta.Nombre || r.Codigo == receta.Codigo);
                     if (existeReceta)
                     {
                         codigo = VALOR_POR_DEFECTO;
@@ -310,8 +310,6 @@ namespace Clases
 
             return codigo;
         }
-
-
 
         public Dictionary<int, string> RecuperarRecetas()
         {
@@ -578,9 +576,6 @@ public Empleado BuscarEmpleado(string usuario)
 
             return codigo;
         }
-
-
-
 
         public int RegistrarSolicitud(Solicitud solicitud, List<SolicitudProducto> solicitudProductos)
         {

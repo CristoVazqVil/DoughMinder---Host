@@ -16,5 +16,8 @@ namespace Clases.Contratos
 
         [OperationContract]
         Dictionary<int, string> RecuperarInsumos();
+
+        [OperationContract]
+        List<Insumo> RecuperarTodosInsumos();
     }
 }

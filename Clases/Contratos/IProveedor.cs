@@ -12,5 +12,8 @@ namespace Clases.Contratos
     {
         [OperationContract]
         int GuardarProveedor(Proveedor proveedor);
+
+        [OperationContract]
+        List<Proveedor> RecuperarProveedores();
     }
 }

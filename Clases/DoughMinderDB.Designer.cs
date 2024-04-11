@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\Codes n Shit\DoughMinder---Host\Clases\DoughMinderDB.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\UV\6° Semestre\Desarrollo de software\DoughMinder - Host\Clases\DoughMinderDB.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

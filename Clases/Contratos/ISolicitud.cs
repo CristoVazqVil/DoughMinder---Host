@@ -8,12 +8,9 @@ using System.Threading.Tasks;
 namespace Clases.Contratos
 {
     [ServiceContract]
-    internal interface IReceta
+    internal interface ISolicitud
     {
         [OperationContract]
-        int GuardarReceta(Receta receta, Dictionary<int, float> listaInsumos);
-
-        [OperationContract]
-        Dictionary<int, string> RecuperarRecetas();
+        int RegistrarSolicitud(Solicitud solicitud, List<SolicitudProducto> solicitudProductos);
     }
 }

@@ -18,6 +18,7 @@ namespace Clases
         public Insumo()
         {
             this.InsumoReceta = new HashSet<InsumoReceta>();
+            this.SolicitudProducto = new HashSet<SolicitudProducto>();
         }
     
         public int IdInsumo { get; set; }
@@ -29,5 +30,7 @@ namespace Clases
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InsumoReceta> InsumoReceta { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SolicitudProducto> SolicitudProducto { get; set; }
     }
 }

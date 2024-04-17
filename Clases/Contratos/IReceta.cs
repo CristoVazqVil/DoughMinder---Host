@@ -15,5 +15,8 @@ namespace Clases.Contratos
 
         [OperationContract]
         Dictionary<int, string> RecuperarRecetas();
+
+        [OperationContract]
+        List<Receta> RecuperarRecetasCompletas();
     }
 }

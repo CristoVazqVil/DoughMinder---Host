@@ -798,5 +798,46 @@ namespace Clases
         }
 
 
+
+        public List<Receta> RecuperarRecetasCompletas()
+        {
+            List<Receta> recetas = new List<Receta>();
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultado = context.Receta.ToList();
+                    foreach (var item in resultado)
+                    {
+                        Receta receta = new Receta
+                        {
+                            IdReceta = item.IdReceta,
+                            Nombre = item.Nombre,
+                            Descripcion = item.Descripcion,
+                            Estado = item.Estado,
+                            Codigo = item.Codigo
+                        };
+
+                        recetas.Add(receta);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Error de SQL: " + ex.Message);
+                    return recetas;
+                }
+                catch (EntityException ex)
+                {
+                    Console.WriteLine("Error de Entity Framework: " + ex.Message);
+                    return recetas;
+                }
+            }
+
+            return recetas;
+        }
+
+
     }
 }

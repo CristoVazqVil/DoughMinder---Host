@@ -18,6 +18,9 @@ namespace Clases.Contratos
         List<Producto> RecuperarProductosSinReceta();
 
         [OperationContract]
-        List<Producto> RecuperarProductosParaPedido(); 
+        List<Producto> RecuperarProductosParaPedido();
+
+        [OperationContract]
+        List<Producto> RecuperarProductos();
     }
 }

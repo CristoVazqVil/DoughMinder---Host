@@ -15,5 +15,8 @@ namespace Clases.Contratos
 
         [OperationContract]
         List<Proveedor> RecuperarProveedores();
+
+        [OperationContract]
+        int ReemplazarProveedor(string RFC);
     }
 }

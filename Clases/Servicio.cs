@@ -28,7 +28,7 @@ namespace Clases
                 {
                     context.Database.Log = Console.WriteLine;
 
-                    bool existeProveedor = context.Proveedor.Any(i => i.Nombre == proveedor.Nombre);
+                    bool existeProveedor = context.Proveedor.Any(i => i.RFC == proveedor.RFC);
                     if (existeProveedor)
                     {
                         codigo = VALOR_POR_DEFECTO;
@@ -382,7 +382,7 @@ namespace Clases
                 context.Database.Log = Console.WriteLine;
                 try
                 {
-                    var resultado = context.Proveedor.Select(p => new {p.IdProveedor, p.Nombre, p.Telefono, p.Email}).ToList();
+                    var resultado = context.Proveedor.Select(p => new {p.IdProveedor, p.Nombre, p.Telefono, p.Email, p.RFC}).ToList();
                     foreach (var item in resultado)
                     {
                         Proveedor proveedor = new Proveedor
@@ -390,7 +390,8 @@ namespace Clases
                             IdProveedor = item.IdProveedor,
                             Nombre = item.Nombre,
                             Telefono = item.Telefono,
-                            Email = item.Email
+                            Email = item.Email,
+                            RFC = item.RFC
                         };
 
                         proveedores.Add(proveedor);
@@ -838,6 +839,48 @@ namespace Clases
             return recetas;
         }
 
+        public int ReemplazarProveedor(string RFC)
+        {
+            int codigo = 0;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    context.Database.Log = Console.WriteLine;
+
+                    var proveedorEncontrado = context.Proveedor.FirstOrDefault(e => e.RFC == RFC);
+
+                    if (proveedorEncontrado != null)
+                    {
+                        context.Proveedor.Remove(proveedorEncontrado);
+                        codigo = context.SaveChanges();
+                    }
+                    else
+                    {
+                        codigo = -1;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = -1;
+            }
+            catch (DbUpdateException ex)
+            {
+                codigo = 0;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                codigo = 0;
+            }
+            catch (SqlException ex)
+            {
+                codigo = -1;
+            }
+
+            return codigo;
+        }
 
     }
 }

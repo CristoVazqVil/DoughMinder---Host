@@ -24,5 +24,8 @@ namespace Clases.Contratos
 
         [OperationContract]
         int DeshabilitarReceta(String codigoReceta);
+
+        [OperationContract]
+        List<Receta> RecuperarRecetasCompletas();
     }
 }

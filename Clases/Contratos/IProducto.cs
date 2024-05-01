@@ -28,5 +28,9 @@ namespace Clases.Contratos
 
         [OperationContract]
         int DeshabilitarProducto(String codigoProducto);
+
+
+        [OperationContract]
+        List<Producto> RecuperarProductos();
     }
 }

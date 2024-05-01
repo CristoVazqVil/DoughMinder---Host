@@ -37,6 +37,7 @@
           <Property Name="CantidadKiloLitro" Type="float" />
           <Property Name="RutaFoto" Type="nvarchar" MaxLength="200" />
           <Property Name="Estado" Type="bit" />
+          <Property Name="Codigo" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="InsumoReceta">
           <Key>
@@ -115,6 +116,7 @@
           <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
           <Property Name="Descripcion" Type="nvarchar(max)" />
           <Property Name="Estado" Type="bit" />
+          <Property Name="Codigo" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Solicitud">
           <Key>
@@ -368,6 +370,7 @@
           <Property Name="Estado" Type="Boolean" />
           <NavigationProperty Name="InsumoReceta" Relationship="Self.FK__InsumoRec__IdIns__30F848ED" FromRole="Insumo" ToRole="InsumoReceta" />
           <NavigationProperty Name="SolicitudProducto" Relationship="DoughMinderModel.FK_SolicitudProducto_Insumo" FromRole="Insumo" ToRole="SolicitudProducto" />
+          <Property Name="Codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="InsumoReceta">
           <Key>
@@ -459,6 +462,7 @@
           <Property Name="Estado" Type="Boolean" />
           <NavigationProperty Name="InsumoReceta" Relationship="Self.FK__InsumoRec__IdRec__300424B4" FromRole="Receta" ToRole="InsumoReceta" />
           <NavigationProperty Name="Producto" Relationship="Self.FK__Producto__IdRece__36B12243" FromRole="Receta" ToRole="Producto" />
+          <Property Name="Codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Solicitud">
           <Key>
@@ -710,6 +714,7 @@
           <EntitySetMapping Name="Insumo">
             <EntityTypeMapping TypeName="DoughMinderModel.Insumo">
               <MappingFragment StoreEntitySet="Insumo">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="IdInsumo" ColumnName="IdInsumo" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="PrecioKiloLitro" ColumnName="PrecioKiloLitro" />
@@ -798,6 +803,7 @@
           <EntitySetMapping Name="Receta">
             <EntityTypeMapping TypeName="DoughMinderModel.Receta">
               <MappingFragment StoreEntitySet="Receta">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="IdReceta" ColumnName="IdReceta" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />

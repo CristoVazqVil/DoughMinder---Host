@@ -16,6 +16,7 @@ namespace Clases
     public class Servicio : IInsumo, IReceta, IEmpleado, IProveedor, IMovimiento, IProducto, ISolicitud, IPedido, ILogin
     {
         const int CODIGO_BASE = -1;
+        const int CODIGO_UTILIZADO = -5;
         const int VALOR_POR_DEFECTO = 0;
 
         public int GuardarProveedor(Proveedor proveedor)
@@ -115,7 +116,7 @@ namespace Clases
                 {
                     context.Database.Log = Console.WriteLine;
 
-                    bool existeInsumo = context.Insumo.Any(i => i.Nombre == insumo.Nombre);
+                    bool existeInsumo = context.Insumo.Any(i => i.Nombre == insumo.Nombre || i.Codigo == insumo.Codigo);
                     if (existeInsumo)
                     {
                         codigo = VALOR_POR_DEFECTO;
@@ -200,7 +201,7 @@ namespace Clases
                 {
                     context.Database.Log = Console.WriteLine;
 
-                    bool existeReceta = context.Receta.Any(r => r.Nombre == receta.Nombre);
+                    bool existeReceta = context.Receta.Any(r => r.Nombre == receta.Nombre || r.Codigo == receta.Codigo);
                     if (existeReceta)
                     {
                         codigo = VALOR_POR_DEFECTO;
@@ -256,6 +257,7 @@ namespace Clases
                 try
                 {
                     var resultados = context.Insumo
+                        .Where(i => i.Estado == true)
                         .Select(i => new { i.IdInsumo, i.Nombre })
                         .ToList();
 
@@ -311,8 +313,6 @@ namespace Clases
             return codigo;
         }
 
-
-
         public Dictionary<int, string> RecuperarRecetas()
         {
             Dictionary<int, string> recetas = new Dictionary<int, string>();
@@ -323,6 +323,7 @@ namespace Clases
                 try
                 {
                     var resultados = context.Receta
+                        .Where(i => i.Estado == true)
                         .Select(i => new { i.IdReceta, i.Nombre })
                         .ToList();
 
@@ -579,9 +580,6 @@ public Empleado BuscarEmpleado(string usuario)
             return codigo;
         }
 
-
-
-
         public int RegistrarSolicitud(Solicitud solicitud, List<SolicitudProducto> solicitudProductos)
         {
             int codigo = VALOR_POR_DEFECTO;
@@ -798,6 +796,479 @@ public Empleado BuscarEmpleado(string usuario)
             }
 
             return productos;
+        }
+        
+        public Insumo RecuperarInsumo(String codigoInsumo)
+        {
+            Insumo insumo = null;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    var insumoEntity = context.Insumo
+                        .FirstOrDefault(i => i.Codigo == codigoInsumo);
+
+                    if (insumoEntity != null)
+                    {
+                        insumo = new Insumo
+                        {
+                            IdInsumo = insumoEntity.IdInsumo,
+                            Nombre = insumoEntity.Nombre,
+                            PrecioKiloLitro = insumoEntity.PrecioKiloLitro,
+                            CantidadKiloLitro = insumoEntity.CantidadKiloLitro,
+                            RutaFoto = insumoEntity.RutaFoto,
+                            Estado = insumoEntity.Estado,
+                            Codigo = insumoEntity.Codigo
+                        };
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                insumo = null;
+            }
+            catch (EntityException ex)
+            {
+                insumo = null;
+            }
+
+            return insumo;
+        }
+
+        public int ModificarInsumo(Insumo insumo, string codigoInsumo)
+        {
+            int codigo = VALOR_POR_DEFECTO;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    context.Database.Log = Console.WriteLine;
+
+                    var insumoConMismoNombre = context.Insumo.FirstOrDefault(i => i.Nombre == insumo.Nombre && i.Codigo != codigoInsumo);
+                    if (insumoConMismoNombre != null)
+                    {
+                        codigo = VALOR_POR_DEFECTO;
+                    }
+                    else
+                    {
+                        var insumoExistente = context.Insumo.FirstOrDefault(i => i.Codigo == codigoInsumo);
+                        if (insumoExistente != null)
+                        {
+                            bool insumoEnReceta = context.InsumoReceta.Any(ir => ir.IdInsumo == insumoExistente.IdInsumo);
+                            if (!insumoEnReceta)
+                            {
+                                insumoExistente.Nombre = insumo.Nombre;
+                                insumoExistente.PrecioKiloLitro = insumo.PrecioKiloLitro;
+                                insumoExistente.CantidadKiloLitro = insumo.CantidadKiloLitro;
+                                insumoExistente.RutaFoto = insumo.RutaFoto;
+                                insumoExistente.Estado = insumo.Estado;
+
+                                codigo = context.SaveChanges();
+                            }
+                            else
+                            {
+                                codigo = CODIGO_UTILIZADO;
+                            }
+                        }
+                        else
+                        {
+                            codigo = VALOR_POR_DEFECTO;
+                        }
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+            catch (DbUpdateException ex)
+            {
+                codigo = VALOR_POR_DEFECTO;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                codigo = VALOR_POR_DEFECTO;
+            }
+            catch (SqlException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+
+            return codigo;
+        }
+
+        public int DeshabilitarInsumo(string codigoInsumo)
+        {
+            int codigo = VALOR_POR_DEFECTO;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    context.Database.Log = Console.WriteLine;
+
+                    var insumoExistente = context.Insumo.FirstOrDefault(i => i.Codigo == codigoInsumo);
+                    if (insumoExistente != null)
+                    {
+                        bool insumoEnReceta = context.InsumoReceta.Any(ir => ir.IdInsumo == insumoExistente.IdInsumo);
+                        if (!insumoEnReceta)
+                        {
+                            insumoExistente.Estado = false;
+
+                            codigo = context.SaveChanges();
+                        }
+                        else
+                        {
+                            codigo = CODIGO_UTILIZADO;
+                        }
+                    }
+                    else
+                    {
+                        codigo = VALOR_POR_DEFECTO;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+            catch (DbUpdateException ex)
+            {
+                codigo = VALOR_POR_DEFECTO;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                codigo = VALOR_POR_DEFECTO;
+            }
+            catch (SqlException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+
+            return codigo;
+        }
+
+        public Receta RecuperarReceta(string codigoReceta)
+        {
+            Receta receta = null;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    var recetaEntity = context.Receta
+                        .FirstOrDefault(i => i.Codigo == codigoReceta);
+
+                    if (recetaEntity != null)
+                    {
+                        receta = new Receta
+                        {
+                            IdReceta = recetaEntity.IdReceta,
+                            Nombre = recetaEntity.Nombre,
+                            Descripcion = recetaEntity.Descripcion,
+                            Estado = recetaEntity.Estado,
+                            Codigo = recetaEntity.Codigo
+                        };
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                receta = null;
+            }
+            catch (EntityException ex)
+            {
+                receta = null;
+            }
+
+            return receta;
+        }
+
+        public int ModificarReceta(Receta receta, string codigoReceta, Dictionary<int, float> listaInsumos)
+        {
+            int codigo = VALOR_POR_DEFECTO;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    context.Database.Log = Console.WriteLine;
+
+                    var recetaConMismoNombre = context.Receta.FirstOrDefault(r => r.Nombre == receta.Nombre && r.Codigo != codigoReceta);
+                    if (recetaConMismoNombre != null)
+                    {
+                        codigo = VALOR_POR_DEFECTO;
+                    }
+                    else
+                    {
+                        var recetaExistente = context.Receta.FirstOrDefault(r => r.Codigo == codigoReceta);
+                        if (recetaExistente != null)
+                        {
+                            bool recetaEnProducto = context.Producto.Any(p => p.IdReceta == recetaExistente.IdReceta);
+                            if (!recetaEnProducto)
+                            {
+                                var insumosRecetaAEliminar = context.InsumoReceta.Where(ir => ir.IdReceta == recetaExistente.IdReceta).ToList();
+                                context.InsumoReceta.RemoveRange(insumosRecetaAEliminar);
+
+                                recetaExistente.Nombre = receta.Nombre;
+                                recetaExistente.Descripcion = receta.Descripcion;
+
+                                codigo = context.SaveChanges();
+
+                                foreach (var kvp in listaInsumos)
+                                {
+                                    InsumoReceta insumoReceta = new InsumoReceta
+                                    {
+                                        IdReceta = recetaExistente.IdReceta,
+                                        IdInsumo = kvp.Key,
+                                        Cantidad = kvp.Value
+                                    };
+
+                                    context.InsumoReceta.Add(insumoReceta);
+                                }
+
+                                codigo = context.SaveChanges();
+                            }
+                            else
+                            {
+                                codigo = CODIGO_UTILIZADO;
+                            }
+                        }
+                        else
+                        {
+                            codigo = VALOR_POR_DEFECTO;
+                        }
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+            catch (DbUpdateException ex)
+            {
+                codigo = VALOR_POR_DEFECTO;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                codigo = VALOR_POR_DEFECTO;
+            }
+            catch (SqlException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+
+            return codigo;
+        }
+
+        public int DeshabilitarReceta(string codigoReceta)
+        {
+            int codigo = VALOR_POR_DEFECTO;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    context.Database.Log = Console.WriteLine;
+
+                    var recetaExistente = context.Receta.FirstOrDefault(r => r.Codigo == codigoReceta);
+                    if (recetaExistente != null)
+                    {
+                        bool recetaEnProducto = context.Producto.Any(p => p.IdReceta == recetaExistente.IdReceta);
+                        if (!recetaEnProducto)
+                        {
+                            recetaExistente.Estado = false;
+
+                            codigo = context.SaveChanges();
+                        }
+                        else
+                        {
+                            codigo = CODIGO_UTILIZADO;
+                        }
+                    }
+                    else
+                    {
+                        codigo = VALOR_POR_DEFECTO;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+            catch (DbUpdateException ex)
+            {
+                codigo = VALOR_POR_DEFECTO;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                codigo = VALOR_POR_DEFECTO;
+            }
+            catch (SqlException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+
+            return codigo;
+        }
+
+        public Producto RecuperarProducto(string codigoProducto)
+        {
+            Producto producto = null;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    var productoEntity = context.Producto
+                        .FirstOrDefault(p => p.CodigoProducto == codigoProducto);
+
+                    if (productoEntity != null)
+                    {
+                        producto = new Producto
+                        {
+                            CodigoProducto = productoEntity.CodigoProducto,
+                            Nombre = productoEntity.Nombre,
+                            Cantidad = productoEntity.Cantidad,
+                            Precio = productoEntity.Precio,
+                            IdReceta = productoEntity.IdReceta,
+                            Descripcion = productoEntity.Descripcion,
+                            Estado = productoEntity.Estado,
+                            Restricciones = productoEntity.Restricciones,
+                            RutaFoto = productoEntity.RutaFoto
+                        };
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                producto = null;
+            }
+            catch (EntityException ex)
+            {
+                producto = null;
+            }
+
+            return producto;
+        }
+
+        public int ModificarProducto(Producto producto, string codigoProducto)
+        {
+            int codigo = VALOR_POR_DEFECTO;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    context.Database.Log = Console.WriteLine;
+
+                    var productoConMismoNombre = context.Producto.FirstOrDefault(p => p.Nombre == producto.Nombre && p.CodigoProducto != codigoProducto);
+                    if (productoConMismoNombre != null)
+                    {
+                        codigo = VALOR_POR_DEFECTO;
+                    }
+                    else
+                    {
+                        var productoExistente = context.Producto.FirstOrDefault(p => p.CodigoProducto == codigoProducto);
+                        if (productoExistente != null)
+                        {
+                            bool productoEnPedido = context.PedidoProducto.Any(pp => pp.ClaveProducto == productoExistente.CodigoProducto);
+                            if (!productoEnPedido)
+                            {
+                                productoExistente.Nombre = producto.Nombre;
+                                productoExistente.Cantidad = producto.Cantidad;
+                                productoExistente.Precio = producto.Precio;
+                                productoExistente.IdReceta = producto.IdReceta;
+                                productoExistente.Descripcion = producto.Descripcion;
+                                productoExistente.Estado = producto.Estado;
+                                productoExistente.Restricciones = producto.Restricciones;
+                                productoExistente.RutaFoto = producto.RutaFoto;
+
+                                codigo = context.SaveChanges();
+                            }
+                            else
+                            {
+                                codigo = CODIGO_UTILIZADO;
+                            }
+                        }
+                        else
+                        {
+                            codigo = VALOR_POR_DEFECTO;
+                        }
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+            catch (DbUpdateException ex)
+            {
+                codigo = VALOR_POR_DEFECTO;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                codigo = VALOR_POR_DEFECTO;
+            }
+            catch (SqlException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+
+            return codigo;
+        }
+
+        public int DeshabilitarProducto(string codigoProducto)
+        {
+            int codigo = VALOR_POR_DEFECTO;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    context.Database.Log = Console.WriteLine;
+
+                    var productoExistente = context.Producto.FirstOrDefault(p => p.CodigoProducto == codigoProducto);
+                    if (productoExistente != null)
+                    {
+                        bool productoEnPedido = context.PedidoProducto.Any(pp => pp.ClaveProducto == productoExistente.CodigoProducto);
+                        if (!productoEnPedido)
+                        {
+                            productoExistente.Estado = false;
+
+                            codigo = context.SaveChanges();
+                        }
+                        else
+                        {
+                            codigo = CODIGO_UTILIZADO;
+                        }
+                    }
+                    else
+                    {
+                        codigo = VALOR_POR_DEFECTO;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+            catch (DbUpdateException ex)
+            {
+                codigo = VALOR_POR_DEFECTO;
+            }
+            catch (DbEntityValidationException ex)
+            {
+                codigo = VALOR_POR_DEFECTO;
+            }
+            catch (SqlException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+
+            return codigo;
         }
     }
 }

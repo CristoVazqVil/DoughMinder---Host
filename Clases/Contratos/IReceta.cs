@@ -15,5 +15,14 @@ namespace Clases.Contratos
 
         [OperationContract]
         Dictionary<int, string> RecuperarRecetas();
+
+        [OperationContract]
+        Receta RecuperarReceta(String codigoReceta);
+
+        [OperationContract]
+        int ModificarReceta(Receta receta, String codigoReceta, Dictionary<int, float> listaInsumos);
+
+        [OperationContract]
+        int DeshabilitarReceta(String codigoReceta);
     }
 }

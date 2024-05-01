@@ -433,7 +433,8 @@ namespace Clases
                             CantidadKiloLitro = item.CantidadKiloLitro,
                             Estado = item.Estado,
                             RutaFoto = item.RutaFoto,
-                            PrecioKiloLitro = item.PrecioKiloLitro
+                            PrecioKiloLitro = item.PrecioKiloLitro,
+                            Codigo = item.Codigo
                         };
 
                         insumos.Add(insumo);

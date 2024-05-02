@@ -4,31 +4,29 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="187cfd6f9d0144e0b540262496cc94f9" Name="Diagram1" ZoomLevel="81">
-        <EntityTypeShape EntityType="DoughMinderModel.Empleado" Width="1.5" PointX="10" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DoughMinderModel.EstadoPedido" Width="1.5" PointX="0.75" PointY="16" IsExpanded="true" />
+      <Diagram DiagramId="badea7d1f94641feab5f934c0eb1608a" Name="Diagram1">
+        <EntityTypeShape EntityType="DoughMinderModel.Empleado" Width="1.5" PointX="11" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DoughMinderModel.Insumo" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DoughMinderModel.InsumoReceta" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DoughMinderModel.Movimiento" Width="1.5" PointX="2.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DoughMinderModel.Pedido" Width="1.5" PointX="3" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DoughMinderModel.PedidoProducto" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DoughMinderModel.Producto" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DoughMinderModel.Proveedor" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DoughMinderModel.Puesto" Width="1.5" PointX="7.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DoughMinderModel.Receta" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DoughMinderModel.Solicitud" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DoughMinderModel.SolicitudProducto" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
-        <AssociationConnector Association="DoughMinderModel.FK__Empleado__IdPues__571DF1D5" ManuallyRouted="false" />
-        <AssociationConnector Association="DoughMinderModel.FK__Pedido__IdEstado__4CA06362" ManuallyRouted="false" />
-        <AssociationConnector Association="DoughMinderModel.FK__InsumoRec__IdIns__440B1D61" ManuallyRouted="false" />
-        <AssociationConnector Association="DoughMinderModel.FK__InsumoRec__IdRec__4316F928" ManuallyRouted="false" />
-        <AssociationConnector Association="DoughMinderModel.FK__PedidoPro__IdPed__534D60F1" ManuallyRouted="false" />
-        <AssociationConnector Association="DoughMinderModel.FK__PedidoPro__Clave__5441852A" ManuallyRouted="false" />
-        <AssociationConnector Association="DoughMinderModel.FK__Producto__IdRece__49C3F6B7" ManuallyRouted="false" />
-        <AssociationConnector Association="DoughMinderModel.FK__Solicitud__Clave__5070F446" ManuallyRouted="false" />
-        <AssociationConnector Association="DoughMinderModel.FK__Solicitud__IdPro__46E78A0C" ManuallyRouted="false" />
-        <AssociationConnector Association="DoughMinderModel.FK__Solicitud__IdSol__4F7CD00D" ManuallyRouted="false" />
-        <AssociationConnector Association="DoughMinderModel.FK_SolicitudProducto_Insumo" />
+        <EntityTypeShape EntityType="DoughMinderModel.InsumoReceta" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoughMinderModel.Movimiento" Width="1.5" PointX="5.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoughMinderModel.Pedido" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoughMinderModel.PedidoProducto" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoughMinderModel.Producto" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoughMinderModel.Proveedor" Width="1.5" PointX="3.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoughMinderModel.Puesto" Width="1.5" PointX="8.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoughMinderModel.Receta" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoughMinderModel.Solicitud" Width="1.5" PointX="6" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DoughMinderModel.SolicitudProducto" Width="1.5" PointX="8.25" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="DoughMinderModel.FK__Empleado__IdPues__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="DoughMinderModel.FK__InsumoRec__IdIns__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="DoughMinderModel.FK_SolicitudProducto_Insumo" ManuallyRouted="false" />
+        <AssociationConnector Association="DoughMinderModel.FK__InsumoRec__IdRec__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="DoughMinderModel.FK__PedidoPro__IdPed__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="DoughMinderModel.FK__PedidoPro__Clave__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="DoughMinderModel.FK__Producto__IdRece__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="DoughMinderModel.FK__Solicitud__Clave__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="DoughMinderModel.FK__Solicitud__IdPro__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="DoughMinderModel.FK__Solicitud__IdSol__3C69FB99" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -83,9 +83,6 @@
     <Compile Include="Empleado.cs">
       <DependentUpon>DoughMinderDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="EstadoPedido.cs">
-      <DependentUpon>DoughMinderDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Insumo.cs">
       <DependentUpon>DoughMinderDB.tt</DependentUpon>
     </Compile>

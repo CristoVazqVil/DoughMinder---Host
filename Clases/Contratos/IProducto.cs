@@ -31,5 +31,8 @@ namespace Clases.Contratos
 
         [OperationContract]
         List<Producto> RecuperarProductos();
+
+        [OperationContract]
+        List<PedidoProducto> RecuperarProductosPorPedido(int idPedido);
     }
 }

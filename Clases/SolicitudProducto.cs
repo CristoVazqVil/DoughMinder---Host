@@ -20,8 +20,8 @@ namespace Clases
         public string ClaveProducto { get; set; }
         public Nullable<int> IdInsumo { get; set; }
     
+        public virtual Insumo Insumo { get; set; }
         public virtual Producto Producto { get; set; }
         public virtual Solicitud Solicitud { get; set; }
-        public virtual Insumo Insumo { get; set; }
     }
 }

@@ -26,7 +26,6 @@ namespace Clases
         }
     
         public virtual DbSet<Empleado> Empleado { get; set; }
-        public virtual DbSet<EstadoPedido> EstadoPedido { get; set; }
         public virtual DbSet<Insumo> Insumo { get; set; }
         public virtual DbSet<InsumoReceta> InsumoReceta { get; set; }
         public virtual DbSet<Movimiento> Movimiento { get; set; }

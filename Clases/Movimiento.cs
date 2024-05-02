@@ -17,5 +17,6 @@ namespace Clases
         public int IdMovimiento { get; set; }
         public Nullable<decimal> CostoTotal { get; set; }
         public string Descripcion { get; set; }
+        public Nullable<System.DateTime> Fecha { get; set; }
     }
 }

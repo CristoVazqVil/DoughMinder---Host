@@ -24,12 +24,12 @@ namespace Clases
         public string TipoEntrega { get; set; }
         public Nullable<System.DateTime> Fecha { get; set; }
         public Nullable<decimal> CostoTotal { get; set; }
-        public Nullable<int> IdEstadoPedido { get; set; }
         public string Direccion { get; set; }
         public string NombreCliente { get; set; }
         public string TelefonoCliente { get; set; }
+        public string Clave { get; set; }
+        public string Estado { get; set; }
     
-        public virtual EstadoPedido EstadoPedido { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PedidoProducto> PedidoProducto { get; set; }
     }

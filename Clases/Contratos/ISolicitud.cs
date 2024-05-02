@@ -12,5 +12,8 @@ namespace Clases.Contratos
     {
         [OperationContract]
         int RegistrarSolicitud(Solicitud solicitud, List<SolicitudProducto> solicitudProductos);
+
+        [OperationContract]
+        List<Solicitud> RecuperarSolicitudes();
     }
 }

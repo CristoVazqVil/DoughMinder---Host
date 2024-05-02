@@ -21,5 +21,11 @@ namespace Clases.Contratos
 
         [OperationContract]
         Pedido RecuperarPedido(string clave);
+
+        [OperationContract]
+        int CancelarPedido(string clave);
+
+        [OperationContract]
+        int ModificarPedido(Pedido pedido, List<PedidoProducto> productosAgregados);
     }
 }

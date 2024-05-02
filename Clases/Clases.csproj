@@ -65,68 +65,68 @@
     <Compile Include="Contratos\IProveedor.cs" />
     <Compile Include="Contratos\IReceta.cs" />
     <Compile Include="Contratos\ISolicitud.cs" />
+    <Compile Include="DoughMinderDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DoughMinderDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DoughMinderDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DoughMinderDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DoughMinderDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DoughMinderDB.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Empleado.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>DoughMinderDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Insumo.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>DoughMinderDB.tt</DependentUpon>
     </Compile>
     <Compile Include="InsumoReceta.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>DoughMinderDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Movimiento.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>DoughMinderDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Pedido.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>DoughMinderDB.tt</DependentUpon>
     </Compile>
     <Compile Include="PedidoProducto.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>DoughMinderDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Producto.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>DoughMinderDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Proveedor.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>DoughMinderDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Puesto.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>DoughMinderDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Receta.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>DoughMinderDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Servicio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Solicitud.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>DoughMinderDB.tt</DependentUpon>
     </Compile>
     <Compile Include="SolicitudProducto.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>DoughMinderDB.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="Model1.edmx">
+    <EntityDeploy Include="DoughMinderDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+      <LastGenOutput>DoughMinderDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
+    <None Include="DoughMinderDB.edmx.diagram">
+      <DependentUpon>DoughMinderDB.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -134,15 +134,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Model1.Context.tt">
+    <Content Include="DoughMinderDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>DoughMinderDB.edmx</DependentUpon>
+      <LastGenOutput>DoughMinderDB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Model1.tt">
+    <Content Include="DoughMinderDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
+      <DependentUpon>DoughMinderDB.edmx</DependentUpon>
+      <LastGenOutput>DoughMinderDB.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

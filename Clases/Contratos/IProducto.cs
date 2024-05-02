@@ -21,6 +21,16 @@ namespace Clases.Contratos
         List<Producto> RecuperarProductosParaPedido();
 
         [OperationContract]
+        Producto RecuperarProducto(String codigoProducto);
+
+        [OperationContract]
+        int ModificarProducto(Producto producto, String codigoProducto);
+
+        [OperationContract]
+        int DeshabilitarProducto(String codigoProducto);
+
+
+        [OperationContract]
         List<Producto> RecuperarProductos();
 
         [OperationContract]

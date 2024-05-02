@@ -24,7 +24,9 @@ namespace Clases
         public string Nombre { get; set; }
         public string Email { get; set; }
         public string Telefono { get; set; }
-    
+        public string RFC { get; set; }
+        public Nullable<bool> Estado { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Solicitud> Solicitud { get; set; }
     }

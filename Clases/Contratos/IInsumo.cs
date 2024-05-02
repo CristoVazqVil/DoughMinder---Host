@@ -19,5 +19,14 @@ namespace Clases.Contratos
 
         [OperationContract]
         List<Insumo> RecuperarTodosInsumos();
+
+        [OperationContract]
+        Insumo RecuperarInsumo(String codigoInsumo);
+
+        [OperationContract]
+        int ModificarInsumo(Insumo insumo, String codigoInsumo);
+
+        [OperationContract]
+        int DeshabilitarInsumo(String codigoInsumo);
     }
 }

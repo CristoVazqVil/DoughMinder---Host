@@ -12,5 +12,14 @@ namespace Clases.Contratos
     {
         [OperationContract]
         int RegistrarPedido(Pedido pedido, List<PedidoProducto> pedidoProductos);
+
+        [OperationContract]
+        List<Pedido> RecuperarPedidos();
+
+        [OperationContract]
+        List<Pedido> RecuperarPedidosNoCancelados();
+
+        [OperationContract]
+        Pedido RecuperarPedido(string clave);
     }
 }

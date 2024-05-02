@@ -12,5 +12,8 @@ namespace Clases.Contratos
     {
         [OperationContract]
         int RegistrarMovimiento(Movimiento movimiento);
+
+        [OperationContract]
+        List<Movimiento> RecuperarMovimientos();
     }
 }

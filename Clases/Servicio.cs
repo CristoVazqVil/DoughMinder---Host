@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -385,7 +386,7 @@ namespace Clases
                 context.Database.Log = Console.WriteLine;
                 try
                 {
-                    var resultado = context.Proveedor.Select(p => new {p.IdProveedor, p.Nombre, p.Telefono, p.Email, p.RFC}).ToList();
+                    var resultado = context.Proveedor.Select(p => new {p.IdProveedor, p.Nombre, p.Telefono, p.Email, p.RFC, p.Estado}).ToList();
                     foreach (var item in resultado)
                     {
                         Proveedor proveedor = new Proveedor
@@ -394,7 +395,8 @@ namespace Clases
                             Nombre = item.Nombre,
                             Telefono = item.Telefono,
                             Email = item.Email,
-                            RFC = item.RFC
+                            RFC = item.RFC,
+                            Estado = item.Estado,
                         };
 
                         proveedores.Add(proveedor);

@@ -102,6 +102,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="150" />
           <Property Name="Telefono" Type="nvarchar" MaxLength="15" />
           <Property Name="RFC" Type="nvarchar" MaxLength="100" />
+          <Property Name="Estado" Type="bit" />
         </EntityType>
         <EntityType Name="Puesto">
           <Key>
@@ -447,6 +448,7 @@
           <Property Name="Telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Solicitud" Relationship="Self.FK__Solicitud__IdPro__46E78A0C" FromRole="Proveedor" ToRole="Solicitud" />
           <Property Name="RFC" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" />
         </EntityType>
         <EntityType Name="Puesto">
           <Key>
@@ -484,7 +486,7 @@
             <PropertyRef Name="IdSolicitudProducto" />
           </Key>
           <Property Name="IdSolicitudProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Cantidad" Type="Decimal" />
+          <Property Name="Cantidad" Type="Decimal" Precision="18" Scale="10" />
           <Property Name="IdSolicitud" Type="Int32" />
           <Property Name="ClaveProducto" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Producto" Relationship="Self.FK__Solicitud__Clave__5070F446" FromRole="SolicitudProducto" ToRole="Producto" />
@@ -790,6 +792,7 @@
           <EntitySetMapping Name="Proveedor">
             <EntityTypeMapping TypeName="DoughMinderModel.Proveedor">
               <MappingFragment StoreEntitySet="Proveedor">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="RFC" ColumnName="RFC" />
                 <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />

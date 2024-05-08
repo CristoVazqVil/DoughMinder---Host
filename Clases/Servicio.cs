@@ -1357,199 +1357,89 @@ namespace Clases
             return recetas;
         }
 
-        public List<Pedido> RecuperarPedidos()
+
+        public int CancelarPedido(string clave)
         {
-            List<Pedido> pedidos = new List<Pedido>();
+            int codigo = VALOR_POR_DEFECTO;
 
-            using (var context = new DoughMinderEntities())
+            try
             {
-                context.Database.Log = Console.WriteLine;
-                try
+                using (var context = new DoughMinderEntities())
                 {
-                    var resultado = context.Pedido.ToList();
-                    foreach (var item in resultado)
-                    {
-                        Pedido pedido = new Pedido
-                        {
-                            IdPedido = item.IdPedido,
-                            Estado = item.Estado,
-                            TipoEntrega = item.TipoEntrega,
-                            Direccion = item.Direccion,
-                            CostoTotal = item.CostoTotal,
-                            Fecha = item.Fecha,
-                            NombreCliente = item.NombreCliente,
-                            TelefonoCliente = item.TelefonoCliente,
-                            Clave = item.Clave,
-                        };
+                    context.Database.Log = Console.WriteLine;
 
-                        pedidos.Add(pedido);
+                    var pedido = context.Pedido.FirstOrDefault(p => p.Clave == clave);
+                    if (pedido != null)
+                    {
+                        pedido.CostoTotal = 0;
+                        pedido.Estado = "Cancelado";
+
+                        codigo = context.SaveChanges();
+                    }
+                    else
+                    {
+                        codigo = VALOR_POR_DEFECTO;
                     }
                 }
-                catch (SqlException ex)
-                {
-                    return pedidos;
-                }
-                catch (EntityException ex)
-                {
-                    return pedidos;
-                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+            catch (SqlException ex)
+            {
+                codigo = CODIGO_BASE;
             }
 
-            return pedidos;
+            return codigo;
         }
 
-        public List<Movimiento> RecuperarMovimientos()
+        public int ModificarPedido(Pedido pedido, List<PedidoProducto> productosAgregados)
         {
-            List<Movimiento> movimientos = new List<Movimiento>();
+            int codigo = VALOR_POR_DEFECTO;
 
-            using (var context = new DoughMinderEntities())
+            try
             {
-                context.Database.Log = Console.WriteLine;
-                try
+                using (var context = new DoughMinderEntities())
                 {
-                    var resultado = context.Movimiento.ToList();
-                    foreach (var item in resultado)
+                    using (var transaction = context.Database.BeginTransaction())
                     {
-                        Movimiento movimiento = new Movimiento
+                        context.Database.Log = Console.WriteLine;
+                        var pedidoBase = context.Pedido.FirstOrDefault(p => p.IdPedido == pedido.IdPedido);
+                        if (pedidoBase != null)
                         {
-                            IdMovimiento = item.IdMovimiento,
-                            Fecha = item.Fecha,
-                            Descripcion = item.Descripcion,
-                            CostoTotal = item.CostoTotal,
-                        };
+                            pedidoBase.Estado = pedido.Estado;
+                            pedidoBase.CostoTotal = pedido.CostoTotal;
+                        }
 
-                        movimientos.Add(movimiento);
+                        codigo = context.SaveChanges();
+
+                        var productosAEliminar = context.PedidoProducto.Where(pp => pp.IdPedido == pedido.IdPedido).ToList();
+                        context.PedidoProducto.RemoveRange(productosAEliminar);
+
+                        codigo += context.SaveChanges();
+
+                        foreach (var pa in productosAgregados)
+                        {
+                            pa.IdPedido = pedido.IdPedido;
+                            context.PedidoProducto.Add(pa);
+                        }
+
+                        codigo += context.SaveChanges();
+                        transaction.Commit();
                     }
                 }
-                catch (SqlException ex)
-                {
-                    return movimientos;
-                }
-                catch (EntityException ex)
-                {
-                    return movimientos;
-                }
             }
-
-            return movimientos;
-        }
-
-        public List<Pedido> RecuperarPedidosNoCancelados()
-        {
-            List<Pedido> pedidos = new List<Pedido>();
-
-            using (var context = new DoughMinderEntities())
+            catch (EntityException ex)
             {
-                context.Database.Log = Console.WriteLine;
-                try
-                {
-                    var resultado = context.Pedido.Where(p => p.Estado != "Cancelado").ToList();
-                    foreach (var item in resultado)
-                    {
-                        Pedido pedido = new Pedido
-                        {
-                            IdPedido = item.IdPedido,
-                            Estado = item.Estado,
-                            TipoEntrega = item.TipoEntrega,
-                            Direccion = item.Direccion,
-                            CostoTotal = item.CostoTotal,
-                            Fecha = item.Fecha,
-                            NombreCliente = item.NombreCliente,
-                            TelefonoCliente = item.TelefonoCliente,
-                            Clave = item.Clave,
-                        };
-
-                        pedidos.Add(pedido);
-                    }
-                }
-                catch (SqlException ex)
-                {
-                    return pedidos;
-                }
-                catch (EntityException ex)
-                {
-                    return pedidos;
-                }
+                codigo = CODIGO_BASE;
             }
-
-            return pedidos;
-        }
-
-        public List<Solicitud> RecuperarSolicitudes()
-        {
-            List<Solicitud> solicitudes = new List<Solicitud>();
-
-            using (var context = new DoughMinderEntities())
+            catch (SqlException ex)
             {
-                context.Database.Log = Console.WriteLine;
-                try
-                {
-                    var resultado = context.Solicitud.ToList();
-                    foreach (var item in resultado)
-                    {
-                        Solicitud solicitud = new Solicitud
-                        {
-                            IdSolicitud = item.IdSolicitud,
-                            Fecha = item.Fecha,
-                            CostoTotal = item.CostoTotal,
-                        };
-
-                        solicitudes.Add(solicitud);
-                    }
-                }
-                catch (SqlException ex)
-                {
-                    return solicitudes;
-                }
-                catch (EntityException ex)
-                {
-                    return solicitudes;
-                }
+                codigo = CODIGO_BASE;
             }
 
-            return solicitudes;
-        }
-
-        public Pedido RecuperarPedido(string clave)
-        {
-            Pedido pedido = null;
-
-            using (var context = new DoughMinderEntities())
-            {
-                context.Database.Log = Console.WriteLine;
-                try
-                {
-                    var resultado = context.Pedido
-                                        .Where(p => p.Clave == clave)
-                                        .FirstOrDefault();
-
-                    if (resultado != null)
-                    {
-                        pedido = new Pedido
-                        {
-                            IdPedido = resultado.IdPedido,
-                            Clave = clave,
-                            Direccion = resultado.Direccion,
-                            CostoTotal = resultado.CostoTotal,
-                            NombreCliente = resultado.NombreCliente,
-                            Estado = resultado.Estado,
-                            Fecha = resultado.Fecha,
-                            TelefonoCliente = resultado.TelefonoCliente,
-                            TipoEntrega = resultado.TipoEntrega,
-                        };
-                    }
-                }
-                catch (SqlException ex)
-                {
-                    return pedido;
-                }
-                catch (EntityException ex)
-                {
-                    return pedido;
-                }
-            }
-
-            return pedido;
+            return codigo;
         }
 
         public List<PedidoProducto> RecuperarProductosPorPedido(int idPedido)

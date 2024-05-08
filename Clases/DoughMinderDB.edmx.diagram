@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c7a8e46cd26448a2b8aa813eef7e5ca6" Name="Diagram1">
+      <Diagram DiagramId="c70fe54a1b0d4535a086f64fd6cea57f" Name="Diagram1">
         <EntityTypeShape EntityType="DoughMinderModel.Empleado" Width="1.5" PointX="11" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DoughMinderModel.Insumo" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DoughMinderModel.InsumoReceta" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
@@ -26,7 +26,7 @@
         <AssociationConnector Association="DoughMinderModel.FK__Producto__IdRece__49C3F6B7" ManuallyRouted="false" />
         <AssociationConnector Association="DoughMinderModel.FK__Solicitud__Clave__5070F446" ManuallyRouted="false" />
         <AssociationConnector Association="DoughMinderModel.FK__Solicitud__IdPro__46E78A0C" ManuallyRouted="false" />
-        <AssociationConnector Association="DoughMinderModel.FK_SolicitudProducto_Insumo" />
+        <AssociationConnector Association="DoughMinderModel.FK__Solicitud__IdSol__4F7CD00D" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

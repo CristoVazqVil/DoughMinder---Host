@@ -1,0 +1,4 @@
+﻿D:\UV\6° Semestre\Desarrollo de software\DoughMinder - Host\Program.cs
+D:\UV\6° Semestre\Desarrollo de software\DoughMinder - Host\Properties\AssemblyInfo.cs
+D:\UV\6° Semestre\Desarrollo de software\DoughMinder - Host\App.config
+D:\UV\6° Semestre\Desarrollo de software\DoughMinder - Host\packages.config

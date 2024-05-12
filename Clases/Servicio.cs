@@ -475,7 +475,7 @@ namespace Clases
                             Descripcion = item.Descripcion,
                             Estado = item.Estado,
                             Restricciones = item.Restricciones,
-                            RutaFoto = item.RutaFoto,
+                            Foto = item.Foto,
                         };
 
                         productos.Add(producto);
@@ -643,7 +643,7 @@ namespace Clases
                             Descripcion = item.Descripcion,
                             Estado = item.Estado,
                             Restricciones = item.Restricciones,
-                            RutaFoto = item.RutaFoto,
+                            Foto = item.Foto,
                         };
 
                         productos.Add(producto);
@@ -782,7 +782,7 @@ namespace Clases
                             Descripcion = item.Descripcion,
                             Estado = item.Estado,
                             Restricciones = item.Restricciones,
-                            RutaFoto = item.RutaFoto,
+                            Foto = item.Foto,
                         };
 
                         productos.Add(producto);
@@ -1140,7 +1140,7 @@ namespace Clases
                             Descripcion = productoEntity.Descripcion,
                             Estado = productoEntity.Estado,
                             Restricciones = productoEntity.Restricciones,
-                            RutaFoto = productoEntity.RutaFoto
+                            Foto = productoEntity.Foto
                         };
                     }
                 }
@@ -1187,7 +1187,7 @@ namespace Clases
                                 productoExistente.Descripcion = producto.Descripcion;
                                 productoExistente.Estado = producto.Estado;
                                 productoExistente.Restricciones = producto.Restricciones;
-                                productoExistente.RutaFoto = producto.RutaFoto;
+                                productoExistente.Foto = producto.Foto;
 
                                 codigo = context.SaveChanges();
                             }

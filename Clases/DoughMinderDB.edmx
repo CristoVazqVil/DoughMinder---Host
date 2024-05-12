@@ -84,9 +84,9 @@
           <Property Name="Precio" Type="money" />
           <Property Name="Cantidad" Type="int" />
           <Property Name="Restricciones" Type="nvarchar(max)" />
-          <Property Name="RutaFoto" Type="nvarchar" MaxLength="200" />
           <Property Name="Estado" Type="bit" />
           <Property Name="IdReceta" Type="int" />
+          <Property Name="Foto" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Proveedor">
           <Key>
@@ -402,9 +402,9 @@
           <Property Name="Precio" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Cantidad" Type="Int32" />
           <Property Name="Restricciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RutaFoto" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Estado" Type="Boolean" />
           <Property Name="IdReceta" Type="Int32" />
+          <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="PedidoProducto" Relationship="Self.FK__PedidoPro__Clave__412EB0B6" FromRole="Producto" ToRole="PedidoProducto" />
           <NavigationProperty Name="Receta" Relationship="Self.FK__Producto__IdRece__36B12243" FromRole="Producto" ToRole="Receta" />
           <NavigationProperty Name="SolicitudProducto" Relationship="Self.FK__Solicitud__Clave__3D5E1FD2" FromRole="Producto" ToRole="SolicitudProducto" />
@@ -730,9 +730,9 @@
                 <ScalarProperty Name="Precio" ColumnName="Precio" />
                 <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="Restricciones" ColumnName="Restricciones" />
-                <ScalarProperty Name="RutaFoto" ColumnName="RutaFoto" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="IdReceta" ColumnName="IdReceta" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

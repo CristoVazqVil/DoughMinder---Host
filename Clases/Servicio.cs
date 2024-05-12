@@ -1477,5 +1477,200 @@ namespace Clases
 
             return productos;
         }
+
+        public List<Movimiento> RecuperarMovimientos()
+        {
+            List<Movimiento> movimientos = new List<Movimiento>();
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultado = context.Movimiento.ToList();
+                    foreach (var item in resultado)
+                    {
+                        Movimiento movimiento = new Movimiento
+                        {
+                            IdMovimiento = item.IdMovimiento,
+                            Fecha = item.Fecha,
+                            Descripcion = item.Descripcion,
+                            CostoTotal = item.CostoTotal,
+                        };
+
+                        movimientos.Add(movimiento);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return movimientos;
+                }
+                catch (EntityException ex)
+                {
+                    return movimientos;
+                }
+            }
+
+            return movimientos;
+        }
+
+        public List<Solicitud> RecuperarSolicitudes()
+        {
+            List<Solicitud> solicitudes = new List<Solicitud>();
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultado = context.Solicitud.ToList();
+                    foreach (var item in resultado)
+                    {
+                        Solicitud solicitud = new Solicitud
+                        {
+                            IdSolicitud = item.IdSolicitud,
+                            Fecha = item.Fecha,
+                            CostoTotal = item.CostoTotal,
+                        };
+
+                        solicitudes.Add(solicitud);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return solicitudes;
+                }
+                catch (EntityException ex)
+                {
+                    return solicitudes;
+                }
+            }
+
+            return solicitudes;
+        }
+
+        public List<Pedido> RecuperarPedidos()
+        {
+            List<Pedido> pedidos = new List<Pedido>();
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultado = context.Pedido.ToList();
+                    foreach (var item in resultado)
+                    {
+                        Pedido pedido = new Pedido
+                        {
+                            IdPedido = item.IdPedido,
+                            Estado = item.Estado,
+                            TipoEntrega = item.TipoEntrega,
+                            Direccion = item.Direccion,
+                            CostoTotal = item.CostoTotal,
+                            Fecha = item.Fecha,
+                            NombreCliente = item.NombreCliente,
+                            TelefonoCliente = item.TelefonoCliente,
+                            Clave = item.Clave,
+                        };
+
+                        pedidos.Add(pedido);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return pedidos;
+                }
+                catch (EntityException ex)
+                {
+                    return pedidos;
+                }
+            }
+
+            return pedidos;
+        }
+
+        public List<Pedido> RecuperarPedidosNoCancelados()
+        {
+            List<Pedido> pedidos = new List<Pedido>();
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultado = context.Pedido.Where(p => p.Estado != "Cancelado").ToList();
+                    foreach (var item in resultado)
+                    {
+                        Pedido pedido = new Pedido
+                        {
+                            IdPedido = item.IdPedido,
+                            Estado = item.Estado,
+                            TipoEntrega = item.TipoEntrega,
+                            Direccion = item.Direccion,
+                            CostoTotal = item.CostoTotal,
+                            Fecha = item.Fecha,
+                            NombreCliente = item.NombreCliente,
+                            TelefonoCliente = item.TelefonoCliente,
+                            Clave = item.Clave,
+                        };
+
+                        pedidos.Add(pedido);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return pedidos;
+                }
+                catch (EntityException ex)
+                {
+                    return pedidos;
+                }
+            }
+
+            return pedidos;
+        }
+
+        public Pedido RecuperarPedido(string clave)
+        {
+            Pedido pedido = null;
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultado = context.Pedido
+                                        .Where(p => p.Clave == clave)
+                                        .FirstOrDefault();
+
+                    if (resultado != null)
+                    {
+                        pedido = new Pedido
+                        {
+                            IdPedido = resultado.IdPedido,
+                            Clave = clave,
+                            Direccion = resultado.Direccion,
+                            CostoTotal = resultado.CostoTotal,
+                            NombreCliente = resultado.NombreCliente,
+                            Estado = resultado.Estado,
+                            Fecha = resultado.Fecha,
+                            TelefonoCliente = resultado.TelefonoCliente,
+                            TipoEntrega = resultado.TipoEntrega,
+                        };
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return pedido;
+                }
+                catch (EntityException ex)
+                {
+                    return pedido;
+                }
+            }
+
+            return pedido;
+        }
     }
 }

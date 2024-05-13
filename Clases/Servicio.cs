@@ -1672,5 +1672,42 @@ namespace Clases
 
             return pedido;
         }
+
+        public Dictionary<string, float> RecuperarInsumosDeReceta(int idReceta)
+        {
+            Dictionary<string, float> insumosDeReceta = new Dictionary<string, float>();
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultados = context.InsumoReceta
+                        .Where(ir => ir.IdReceta == idReceta)
+                        .Select(ir => new
+                        {
+                            InsumoNombre = ir.Insumo.Nombre,
+                            Cantidad = ir.Cantidad
+                        })
+                        .ToList();
+
+                    foreach (var resultado in resultados)
+                    {
+                        float cantidadFloat = (float)resultado.Cantidad;
+                        insumosDeReceta.Add(resultado.InsumoNombre, cantidadFloat);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return insumosDeReceta;
+                }
+                catch (EntityException ex)
+                {
+                    return insumosDeReceta;
+                }
+            }
+
+            return insumosDeReceta;
+        }
     }
 }

@@ -27,6 +27,7 @@
         <AssociationConnector Association="DoughMinderModel.FK__Solicitud__Clave__3D5E1FD2" ManuallyRouted="false" />
         <AssociationConnector Association="DoughMinderModel.FK__Solicitud__IdPro__33D4B598" ManuallyRouted="false" />
         <AssociationConnector Association="DoughMinderModel.FK__Solicitud__IdSol__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="DoughMinderModel.FK_PedidoEmpleado" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

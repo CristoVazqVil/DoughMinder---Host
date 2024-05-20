@@ -14,6 +14,12 @@ namespace Clases
     
     public partial class Empleado
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Empleado()
+        {
+            this.Pedido = new HashSet<Pedido>();
+        }
+    
         public string Usuario { get; set; }
         public string Nombre { get; set; }
         public string Paterno { get; set; }
@@ -27,5 +33,7 @@ namespace Clases
         public string RFC { get; set; }
     
         public virtual Puesto Puesto { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Pedido> Pedido { get; set; }
     }
 }

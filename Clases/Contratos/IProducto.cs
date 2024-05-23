@@ -29,8 +29,10 @@ namespace Clases.Contratos
         [OperationContract]
         int DeshabilitarProducto(String codigoProducto);
 
-
         [OperationContract]
         List<Producto> RecuperarProductos();
+
+        [OperationContract]
+        List<PedidoProducto> RecuperarProductosPorPedido(int idPedido);
     }
 }

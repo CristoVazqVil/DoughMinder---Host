@@ -709,10 +709,22 @@ namespace Clases
             {
                 using (var context = new DoughMinderEntities())
                 {
-                    bool existeEmpleado = context.Empleado.Any(e => e.Usuario == usuario && e.Contraseña == contraseña);
+                    var empleado = context.Empleado
+                                          .Where(e => e.Usuario == usuario && e.Contraseña == contraseña)
+                                          .Select(e => new { e.Estado })
+                                          .FirstOrDefault();
 
-                    if (existeEmpleado)
-                        resultado = 1;
+                    if (empleado != null)
+                    {
+                        if (empleado.Estado.HasValue && empleado.Estado.Value)
+                        {
+                            resultado = 1; 
+                        }
+                        else
+                        {
+                            resultado = 0; 
+                        }
+                    }
                 }
             }
             catch (SqlException ex)
@@ -725,7 +737,9 @@ namespace Clases
             }
 
             return resultado;
+            
         }
+
 
         public Login RecuperarCuenta(string usuario, string contraseña)
         {

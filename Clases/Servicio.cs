@@ -695,12 +695,12 @@ namespace Clases
             catch (EntityException ex)
             {
                 Console.WriteLine(ex.Message);
-                codigo = CODIGO_BASE;
+                clave = CODIGO_BASE.ToString();
             }
             catch (SqlException ex)
             {
                 Console.WriteLine(ex.Message);
-                codigo = CODIGO_BASE;
+                clave = CODIGO_BASE.ToString();
             }
              
             return clave;
@@ -804,12 +804,12 @@ namespace Clases
             catch (EntityException ex)
             {
                 Console.WriteLine(ex.Message);
-                codigo = CODIGO_BASE;
+                clavePedido = CODIGO_BASE.ToString();
             }
             catch (SqlException ex)
             {
                 Console.WriteLine(ex.Message);
-                codigo = CODIGO_BASE;
+                clavePedido = CODIGO_BASE.ToString();
             }
 
             return clavePedido;
@@ -1847,6 +1847,8 @@ namespace Clases
                             NombreCliente = item.NombreCliente,
                             TelefonoCliente = item.TelefonoCliente,
                             Clave = item.Clave,
+                            Usuario = item.Usuario,
+                            Empleado = item.Empleado,
                         };
 
                         pedidos.Add(pedido);
@@ -1890,6 +1892,8 @@ namespace Clases
                             NombreCliente = item.NombreCliente,
                             TelefonoCliente = item.TelefonoCliente,
                             Clave = item.Clave,
+                            Usuario = item.Usuario,
+                            Empleado = item.Empleado,
                         };
 
                         pedidos.Add(pedido);
@@ -1936,6 +1940,8 @@ namespace Clases
                             Fecha = resultado.Fecha,
                             TelefonoCliente = resultado.TelefonoCliente,
                             TipoEntrega = resultado.TipoEntrega,
+                            Usuario = resultado.Usuario,
+                            Empleado = resultado.Empleado,
                         };
                     }
                 }

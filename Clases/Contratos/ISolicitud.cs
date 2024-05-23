@@ -11,7 +11,7 @@ namespace Clases.Contratos
     internal interface ISolicitud
     {
         [OperationContract]
-        int RegistrarSolicitud(Solicitud solicitud, List<SolicitudProducto> solicitudProductos);
+        string RegistrarSolicitud(Solicitud solicitud, List<SolicitudProducto> solicitudProductos);
 
         [OperationContract]
         List<Solicitud> RecuperarSolicitudes();

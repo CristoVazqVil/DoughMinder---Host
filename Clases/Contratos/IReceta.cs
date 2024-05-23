@@ -27,5 +27,8 @@ namespace Clases.Contratos
 
         [OperationContract]
         List<Receta> RecuperarRecetasCompletas();
+
+        [OperationContract]
+        List<InsumoReceta> RecuperarInsumosPorReceta(int idReceta);
     }
 }

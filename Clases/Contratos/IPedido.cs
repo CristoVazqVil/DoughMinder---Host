@@ -11,7 +11,7 @@ namespace Clases.Contratos
     internal interface IPedido
     {
         [OperationContract]
-        int RegistrarPedido(Pedido pedido, List<PedidoProducto> pedidoProductos);
+        string RegistrarPedido(Pedido pedido, List<PedidoProducto> pedidoProductos);
 
         [OperationContract]
         List<Pedido> RecuperarPedidos();

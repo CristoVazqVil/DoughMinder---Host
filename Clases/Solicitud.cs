@@ -24,6 +24,7 @@ namespace Clases
         public Nullable<System.DateTime> Fecha { get; set; }
         public Nullable<decimal> CostoTotal { get; set; }
         public Nullable<int> IdProveedor { get; set; }
+        public string Clave { get; set; }
     
         public virtual Proveedor Proveedor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

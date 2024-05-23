@@ -30,6 +30,6 @@ namespace Clases.Contratos
         int DeshabilitarInsumo(String codigoInsumo);
 
         [OperationContract]
-        Dictionary<string, float> RecuperarInsumosDeReceta(int idReceta);
+        int ActualizarCantidadInsumos(List<Insumo> insumos);
     }
 }

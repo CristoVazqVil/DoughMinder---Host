@@ -28,5 +28,8 @@ namespace Clases.Contratos
 
         [OperationContract]
         int DeshabilitarInsumo(String codigoInsumo);
+
+        [OperationContract]
+        int ActualizarCantidadInsumos(List<Insumo> insumos);
     }
 }

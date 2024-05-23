@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Numerics;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -600,15 +601,52 @@ namespace Clases
                         solicitud.Clave = $"SOL-{solicitud.IdSolicitud}";
                         context.SaveChanges();
 
+                        List<Producto> productos = new List<Producto>();
+                        List<Insumo> insumos = new List<Insumo>();
+
                         foreach (var sp in solicitudProductos)
                         {
                             sp.IdSolicitud = solicitud.IdSolicitud;
                             context.SolicitudProducto.Add(sp);
+
+                            if (sp.ClaveProducto != null)
+                            {
+                                Producto producto = new Producto
+                                {
+                                    CodigoProducto = sp.ClaveProducto,
+                                    Cantidad = (int?)sp.Cantidad,
+                                };
+
+                                productos.Add(producto);
+                            }
+                            
+                            if (sp.IdInsumo != null)
+                            {
+                                Insumo insumo = new Insumo
+                                {
+                                    IdInsumo = (int)sp.IdInsumo,
+                                    CantidadKiloLitro = (double?)sp.Cantidad,
+                                };
+
+                                insumos.Add(insumo);
+                            }
                         }
 
                         context.SaveChanges();
-                        transaction.Commit();
-                        clave = solicitud.Clave;
+
+                        int actualizacionProductos = ActualizarCantidadProductos(productos);
+                        int actualizacionInsumos = ActualizarCantidadInsumos(insumos);
+
+                        if (actualizacionProductos > 0 && actualizacionInsumos > 0)
+                        {
+                            context.SaveChanges();
+                            transaction.Commit();
+                            clave = solicitud.Clave;
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                        }
                     }
                 }
             }
@@ -668,6 +706,7 @@ namespace Clases
         public string RegistrarPedido(Pedido pedido, List<PedidoProducto> pedidoProductos)
         {
             string clavePedido = string.Empty;
+            List<Producto> productos = new List<Producto>();
 
             try
             {
@@ -676,9 +715,10 @@ namespace Clases
                     using (var transaction = context.Database.BeginTransaction())
                     {
                         context.Database.Log = Console.WriteLine;
-                        context.Pedido.Add(pedido);
 
+                        context.Pedido.Add(pedido);
                         context.SaveChanges();
+
                         pedido.Clave = $"PED-{pedido.IdPedido}";
                         context.SaveChanges();
 
@@ -686,11 +726,32 @@ namespace Clases
                         {
                             pp.IdPedido = pedido.IdPedido;
                             context.PedidoProducto.Add(pp);
+
+                            string cantidadString = "-" + pp.Cantidad;
+
+                            Producto producto = new Producto()
+                            {
+                                CodigoProducto = pp.ClaveProducto,                            
+                                Cantidad = int.Parse(cantidadString),
+                            };
+
+                            productos.Add(producto);
                         }
 
                         context.SaveChanges();
-                        transaction.Commit();
-                        clavePedido = pedido.Clave;
+
+                        int actualizacion = ActualizarCantidadProductos(productos);
+
+                        if (actualizacion > 0)
+                        {
+                            context.SaveChanges();
+                            transaction.Commit();
+                            clavePedido = pedido.Clave;
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                        }
                     }
                 }
             }
@@ -1372,19 +1433,49 @@ namespace Clases
             {
                 using (var context = new DoughMinderEntities())
                 {
-                    context.Database.Log = Console.WriteLine;
-
-                    var pedido = context.Pedido.FirstOrDefault(p => p.Clave == clave);
-                    if (pedido != null)
+                    using (var transaction = context.Database.BeginTransaction())
                     {
-                        pedido.CostoTotal = 0;
-                        pedido.Estado = "Cancelado";
+                        context.Database.Log = Console.WriteLine;
 
-                        codigo = context.SaveChanges();
-                    }
-                    else
-                    {
-                        codigo = VALOR_POR_DEFECTO;
+                        var pedido = context.Pedido.FirstOrDefault(p => p.Clave == clave);
+
+                        if (pedido != null)
+                        {
+                            pedido.CostoTotal = 0;
+                            pedido.Estado = "Cancelado";
+
+                            var productosRecuperados = context.PedidoProducto.Where(pp => pp.IdPedido == pedido.IdPedido).ToList();
+                            List<Producto> productos = new List<Producto>();
+
+                            foreach (var pp in productosRecuperados)
+                            {
+                                Producto producto = new Producto()
+                                {
+                                    CodigoProducto = pp.ClaveProducto,
+                                    Cantidad = pp.Cantidad,
+                                };
+
+                                productos.Add(producto);
+                            }
+
+                            int actualizacion = ActualizarCantidadProductos(productos);
+                            codigo += context.SaveChanges();
+
+                            if (actualizacion > 0)
+                            {
+                                codigo += context.SaveChanges();
+                                transaction.Commit();
+                            }
+                            else
+                            {
+                                transaction.Rollback();
+                            }
+                        }
+                        else
+                        {
+                            codigo = VALOR_POR_DEFECTO;
+                            transaction.Rollback();
+                        }
                     }
                 }
             }
@@ -1420,19 +1511,85 @@ namespace Clases
 
                         codigo = context.SaveChanges();
 
-                        var productosAEliminar = context.PedidoProducto.Where(pp => pp.IdPedido == pedido.IdPedido).ToList();
-                        context.PedidoProducto.RemoveRange(productosAEliminar);
+                        var productosRecuperados = context.PedidoProducto.Where(pp => pp.IdPedido == pedido.IdPedido).ToList();
+                        List<PedidoProducto> productosPedidoActualizados = productosAgregados.ToList();
+                        List<Producto> productosParaInventario = new List<Producto>();
+                        List<PedidoProducto> productosAEliminar = new List<PedidoProducto>();
 
-                        codigo += context.SaveChanges();
+                        foreach (var pa in productosPedidoActualizados.ToList())
+                        {
+                            Producto producto = new Producto();
+                            producto.CodigoProducto = pa.ClaveProducto;
+
+                            foreach (var pr in productosRecuperados.ToList())
+                            {
+                                if (pa.ClaveProducto.Equals(pr.ClaveProducto))
+                                {
+                                    int diferenciaCantidad = (int)(pr.Cantidad - pa.Cantidad);
+
+                                    if (pa.Cantidad < pr.Cantidad)
+                                    {
+                                        producto.Cantidad = diferenciaCantidad;
+                                        productosParaInventario.Add(producto);
+                                    }
+                                    else if (pa.Cantidad > pr.Cantidad)
+                                    {
+                                        producto.Cantidad = -diferenciaCantidad;
+                                        productosParaInventario.Add(producto);
+                                    }
+
+                                    productosAgregados.Remove(pa);
+                                    productosAEliminar.Add(pr);
+                                    break;
+                                }
+                            }
+                        }
+
+                        foreach (var pr in productosAEliminar)
+                        {
+                            productosRecuperados.Remove(pr);
+                        }
 
                         foreach (var pa in productosAgregados)
                         {
-                            pa.IdPedido = pedido.IdPedido;
-                            context.PedidoProducto.Add(pa);
+                            Producto producto = new Producto();
+                            producto.CodigoProducto = pa.ClaveProducto;
+
+                            producto.Cantidad = -pa.Cantidad;
+                            productosParaInventario.Add(producto);
+                        }
+
+                        foreach (var pr in productosRecuperados)
+                        {
+                            Producto producto = new Producto();
+                            producto.CodigoProducto = pr.ClaveProducto;
+
+                            productosParaInventario.Add(producto);
+                        }
+
+                        context.PedidoProducto.RemoveRange(productosAEliminar);
+                        codigo += context.SaveChanges();
+
+                        foreach (var ppa in productosPedidoActualizados)
+                        {
+                            ppa.IdPedido = pedido.IdPedido;
+                            context.PedidoProducto.Add(ppa);
                         }
 
                         codigo += context.SaveChanges();
-                        transaction.Commit();
+
+                        int actualizacion = ActualizarCantidadProductos(productosParaInventario);
+
+                        if (actualizacion > 0)
+                        {
+                            context.SaveChanges();
+                            transaction.Commit();
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                        }
+
                     }
                 }
             }
@@ -1677,6 +1834,113 @@ namespace Clases
             }
 
             return pedido;
+        }
+
+        public int ActualizarCantidadProductos(List<Producto> productos)
+        {
+            int codigo = VALOR_POR_DEFECTO;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    context.Database.Log = Console.WriteLine;
+
+                    foreach (var producto in productos)
+                    {
+                        var productoRecuperado = context.Producto.FirstOrDefault(p => p.CodigoProducto == producto.CodigoProducto);
+
+                        if (productoRecuperado != null)
+                        {
+                            productoRecuperado.Cantidad += producto.Cantidad;
+                        }
+                    }
+
+                    codigo = context.SaveChanges();
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+            catch (SqlException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+
+            return codigo;
+        }
+
+        public int ActualizarCantidadInsumos(List<Insumo> insumos)
+        {
+            int codigo = VALOR_POR_DEFECTO;
+
+            try
+            {
+                using (var context = new DoughMinderEntities())
+                {
+                    context.Database.Log = Console.WriteLine;
+
+                    foreach (var insumo in insumos)
+                    {
+                        var insumoRecuperado = context.Insumo.FirstOrDefault(i => i.IdInsumo == insumo.IdInsumo);
+
+                        if (insumoRecuperado != null)
+                        {
+                            insumoRecuperado.CantidadKiloLitro += insumo.CantidadKiloLitro;
+                        }
+                    }
+
+                    codigo = context.SaveChanges();
+                }
+            }
+            catch (EntityException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+            catch (SqlException ex)
+            {
+                codigo = CODIGO_BASE;
+            }
+
+            return codigo;
+        }
+
+        public List<InsumoReceta> RecuperarInsumosPorReceta(int idReceta)
+        {
+            List<InsumoReceta> insumos = new List<InsumoReceta>();
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+
+                try
+                {
+                    var resultado = context.InsumoReceta.Where(i => i.IdReceta == idReceta).ToList();
+                    foreach (var item in resultado)
+                    {
+                        InsumoReceta insumo = new InsumoReceta
+                        {
+                            IdReceta = item.IdReceta,
+                            IdInsumo = item.IdInsumo,
+                            Cantidad = item.Cantidad,
+                            IdInsumoReceta = item.IdInsumoReceta,
+                        };
+
+                        insumos.Add(insumo);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    return insumos;
+                }
+                catch (EntityException ex)
+                {
+                    return insumos;
+                }
+            }
+
+            return insumos;
         }
     }
 }

@@ -45,18 +45,22 @@ namespace Clases
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
             catch (DbUpdateException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (DbEntityValidationException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
 
@@ -89,18 +93,22 @@ namespace Clases
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
             catch (DbUpdateException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (DbEntityValidationException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
 
@@ -132,18 +140,22 @@ namespace Clases
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
             catch (DbUpdateException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (DbEntityValidationException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
 
@@ -174,18 +186,22 @@ namespace Clases
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
             catch (DbUpdateException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (DbEntityValidationException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
 
@@ -230,18 +246,22 @@ namespace Clases
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
             catch (DbUpdateException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (DbEntityValidationException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
 
@@ -269,10 +289,12 @@ namespace Clases
                 }
                 catch (SqlException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return insumos;
                 }
                 catch (EntityException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return insumos;
                 }
             }
@@ -296,18 +318,22 @@ namespace Clases
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
             catch (DbUpdateException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (DbEntityValidationException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
 
@@ -335,10 +361,12 @@ namespace Clases
                 }
                 catch (SqlException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return recetas;
                 }
                 catch (EntityException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return recetas;
                 }
             }
@@ -366,10 +394,12 @@ namespace Clases
                 }
                 catch (SqlException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return empleados;
                 }
                 catch (EntityException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return empleados;
                 }
             }
@@ -404,10 +434,12 @@ namespace Clases
                 }
                 catch (SqlException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return proveedores;
                 }
                 catch (EntityException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return proveedores;
                 }
             }
@@ -444,10 +476,12 @@ namespace Clases
                 }
                 catch (SqlException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return insumos;
                 }
                 catch (EntityException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return insumos;
                 }
             }
@@ -477,7 +511,7 @@ namespace Clases
                             Descripcion = item.Descripcion,
                             Estado = item.Estado,
                             Restricciones = item.Restricciones,
-                            RutaFoto = item.RutaFoto,
+                            Foto = item.Foto,
                         };
 
                         productos.Add(producto);
@@ -485,10 +519,12 @@ namespace Clases
                 }
                 catch (SqlException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return productos;
                 }
                 catch (EntityException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return productos;
                 }
             }
@@ -567,18 +603,22 @@ namespace Clases
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = -1;
             }
             catch (DbUpdateException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = 0;
             }
             catch (DbEntityValidationException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = 0;
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = -1;
             }
 
@@ -613,10 +653,12 @@ namespace Clases
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
              
@@ -645,7 +687,7 @@ namespace Clases
                             Descripcion = item.Descripcion,
                             Estado = item.Estado,
                             Restricciones = item.Restricciones,
-                            RutaFoto = item.RutaFoto,
+                            Foto = item.Foto,
                         };
 
                         productos.Add(producto);
@@ -653,10 +695,12 @@ namespace Clases
                 }
                 catch (SqlException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return productos;
                 }
                 catch (EntityException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return productos;
                 }
             }
@@ -692,10 +736,12 @@ namespace Clases
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
 
@@ -730,10 +776,12 @@ namespace Clases
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 resultado = -1;
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 resultado = -1;
             }
 
@@ -766,10 +814,12 @@ namespace Clases
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 login = null;
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 login = null;
             }
 
@@ -798,7 +848,7 @@ namespace Clases
                             Descripcion = item.Descripcion,
                             Estado = item.Estado,
                             Restricciones = item.Restricciones,
-                            RutaFoto = item.RutaFoto,
+                            Foto = item.Foto,
                         };
 
                         productos.Add(producto);
@@ -806,10 +856,12 @@ namespace Clases
                 }
                 catch (SqlException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return productos;
                 }
                 catch (EntityException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return productos;
                 }
             }
@@ -845,10 +897,12 @@ namespace Clases
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 insumo = null;
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 insumo = null;
             }
 
@@ -900,18 +954,22 @@ namespace Clases
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
             catch (DbUpdateException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (DbEntityValidationException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
 
@@ -951,18 +1009,22 @@ namespace Clases
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
             catch (DbUpdateException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (DbEntityValidationException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
 
@@ -995,10 +1057,12 @@ namespace Clases
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 receta = null;
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 receta = null;
             }
 
@@ -1064,18 +1128,22 @@ namespace Clases
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
             catch (DbUpdateException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (DbEntityValidationException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
 
@@ -1115,18 +1183,22 @@ namespace Clases
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
             catch (DbUpdateException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (DbEntityValidationException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
 
@@ -1156,17 +1228,19 @@ namespace Clases
                             Descripcion = productoEntity.Descripcion,
                             Estado = productoEntity.Estado,
                             Restricciones = productoEntity.Restricciones,
-                            RutaFoto = productoEntity.RutaFoto
+                            Foto = productoEntity.Foto
                         };
                     }
                 }
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 producto = null;
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 producto = null;
             }
 
@@ -1203,7 +1277,7 @@ namespace Clases
                                 productoExistente.Descripcion = producto.Descripcion;
                                 productoExistente.Estado = producto.Estado;
                                 productoExistente.Restricciones = producto.Restricciones;
-                                productoExistente.RutaFoto = producto.RutaFoto;
+                                productoExistente.Foto = producto.Foto;
 
                                 codigo = context.SaveChanges();
                             }
@@ -1221,18 +1295,22 @@ namespace Clases
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
             catch (DbUpdateException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (DbEntityValidationException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
 
@@ -1272,18 +1350,22 @@ namespace Clases
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
             catch (DbUpdateException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (DbEntityValidationException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = VALOR_POR_DEFECTO;
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
 
@@ -1316,18 +1398,22 @@ namespace Clases
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = -1;
             }
             catch (DbUpdateException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = 0;
             }
             catch (DbEntityValidationException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = 0;
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = -1;
             }
 
@@ -1400,10 +1486,12 @@ namespace Clases
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
 
@@ -1448,10 +1536,12 @@ namespace Clases
             }
             catch (EntityException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
             catch (SqlException ex)
             {
+                Console.WriteLine(ex.Message);
                 codigo = CODIGO_BASE;
             }
 
@@ -1483,10 +1573,12 @@ namespace Clases
                 }
                 catch (SqlException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return productos;
                 }
                 catch (EntityException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return productos;
                 }
             }
@@ -1519,10 +1611,12 @@ namespace Clases
                 }
                 catch (SqlException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return movimientos;
                 }
                 catch (EntityException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return movimientos;
                 }
             }
@@ -1554,10 +1648,12 @@ namespace Clases
                 }
                 catch (SqlException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return solicitudes;
                 }
                 catch (EntityException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return solicitudes;
                 }
             }
@@ -1595,10 +1691,12 @@ namespace Clases
                 }
                 catch (SqlException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return pedidos;
                 }
                 catch (EntityException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return pedidos;
                 }
             }
@@ -1636,10 +1734,12 @@ namespace Clases
                 }
                 catch (SqlException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return pedidos;
                 }
                 catch (EntityException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return pedidos;
                 }
             }
@@ -1678,15 +1778,56 @@ namespace Clases
                 }
                 catch (SqlException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return pedido;
                 }
                 catch (EntityException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return pedido;
                 }
             }
 
             return pedido;
+        }
+
+        public Dictionary<string, float> RecuperarInsumosDeReceta(int idReceta)
+        {
+            Dictionary<string, float> insumosDeReceta = new Dictionary<string, float>();
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultados = context.InsumoReceta
+                        .Where(ir => ir.IdReceta == idReceta)
+                        .Select(ir => new
+                        {
+                            InsumoNombre = ir.Insumo.Nombre,
+                            Cantidad = ir.Cantidad
+                        })
+                        .ToList();
+
+                    foreach (var resultado in resultados)
+                    {
+                        float cantidadFloat = (float)resultado.Cantidad;
+                        insumosDeReceta.Add(resultado.InsumoNombre, cantidadFloat);
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return insumosDeReceta;
+                }
+                catch (EntityException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return insumosDeReceta;
+                }
+            }
+
+            return insumosDeReceta;
         }
     }
 }

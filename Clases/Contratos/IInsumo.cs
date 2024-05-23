@@ -28,5 +28,8 @@ namespace Clases.Contratos
 
         [OperationContract]
         int DeshabilitarInsumo(String codigoInsumo);
+
+        [OperationContract]
+        Dictionary<string, float> RecuperarInsumosDeReceta(int idReceta);
     }
 }

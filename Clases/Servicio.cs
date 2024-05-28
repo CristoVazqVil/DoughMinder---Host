@@ -1847,8 +1847,7 @@ namespace Clases
                             NombreCliente = item.NombreCliente,
                             TelefonoCliente = item.TelefonoCliente,
                             Clave = item.Clave,
-                            Usuario = item.Usuario,
-                            Empleado = item.Empleado,
+                            Usuario = item.Usuario
                         };
 
                         pedidos.Add(pedido);
@@ -1893,7 +1892,6 @@ namespace Clases
                             TelefonoCliente = item.TelefonoCliente,
                             Clave = item.Clave,
                             Usuario = item.Usuario,
-                            Empleado = item.Empleado,
                         };
 
                         pedidos.Add(pedido);
@@ -1940,8 +1938,7 @@ namespace Clases
                             Fecha = resultado.Fecha,
                             TelefonoCliente = resultado.TelefonoCliente,
                             TipoEntrega = resultado.TipoEntrega,
-                            Usuario = resultado.Usuario,
-                            Empleado = resultado.Empleado,
+                            Usuario = resultado.Usuario
                         };
                     }
                 }
@@ -2105,6 +2102,51 @@ namespace Clases
             }
 
             return insumosDeReceta;
+         }
+
+        public Empleado BuscarEmpleadoPorUsuario(string usuario)
+        {
+            Empleado empleadoEncontrado = null;
+
+            using (var context = new DoughMinderEntities())
+            {
+                context.Database.Log = Console.WriteLine;
+                try
+                {
+                    var resultado = context.Empleado
+                                        .Where(e => e.Usuario == usuario)
+                                        .FirstOrDefault();
+
+                    if (resultado != null)
+                    {
+                        empleadoEncontrado = new Empleado
+                        {
+                            Usuario = resultado.Usuario,
+                            Nombre = resultado.Nombre,
+                            Paterno = resultado.Paterno,
+                            Materno = resultado.Materno,
+                            IdPuesto = resultado.IdPuesto,
+                            Telefono = resultado.Telefono,
+                            Estado = resultado.Estado,
+                            Contraseña = resultado.Contraseña,
+                            Direccion = resultado.Direccion,
+                            Correo = resultado.Correo,
+                            RFC = resultado.RFC
+
+                        };
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Error al buscar empleado: " + ex.Message);
+                }
+                catch (EntityException ex)
+                {
+                    Console.WriteLine("Error al buscar empleado: " + ex.Message);
+                }
+            }
+
+            return empleadoEncontrado;
         }
     }
 }

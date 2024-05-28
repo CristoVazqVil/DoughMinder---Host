@@ -24,6 +24,9 @@ namespace Clases.Contratos
 
         [OperationContract]
         Dictionary<string, string> RecuperarEmpleados();
+
+        [OperationContract]
+        Empleado BuscarEmpleadoPorUsuario(string usuario);
     }
 
 }

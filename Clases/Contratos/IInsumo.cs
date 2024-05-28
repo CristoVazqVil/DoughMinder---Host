@@ -34,7 +34,6 @@ namespace Clases.Contratos
         Dictionary<string, float> RecuperarInsumosDeReceta(int idReceta);
 
         [OperationContract]
-
         int ActualizarCantidadInsumos(List<Insumo> insumos);
     }
 }

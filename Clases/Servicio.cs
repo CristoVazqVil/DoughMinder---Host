@@ -679,7 +679,7 @@ namespace Clases
                         int actualizacionProductos = ActualizarCantidadProductos(productos);
                         int actualizacionInsumos = ActualizarCantidadInsumos(insumos);
 
-                        if (actualizacionProductos > 0 && actualizacionInsumos > 0)
+                        if (actualizacionProductos > 0 || actualizacionInsumos > 0)
                         {
                             context.SaveChanges();
                             transaction.Commit();
